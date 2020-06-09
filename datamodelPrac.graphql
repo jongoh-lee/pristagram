@@ -1,0 +1,62 @@
+type User {
+  id: ID! @id
+#회원가입
+  email: String! @unique
+  phoneNumber: Int! 
+  nickName: String! @unique
+  lastName: String!
+  firstName: String! @default(value: "")
+  bio: String!
+  birthDate: Int!
+#로그인
+  loginSecret:String
+#정보등록
+  avatar: String
+  introduce: String
+#SNS 기능
+  likes: [Like!]! @relation(name: "LikesOfUser", onDelete: CASCADE)
+  comments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
+  following: [User!]! @relation(name: "FollowRelation")
+  followers: [User!]! @relation(name: "FollowRelation")
+#단골
+  dangol: [Franchise!]! 
+  posts: [Post!]! @relation(name: "PostsOfUser", onDelete: CASCADE)
+#주변 음식점
+  arounds: [Around!]!
+}
+
+type Franchise {
+  id: ID @id
+  mainImage: String!
+  mainMenuImage: String!
+  mainMenuName: String!
+  fullPrice: Int!
+  salePrice: Int!
+  subMenu: [subMenu!]!
+}
+
+type mainMenu {
+  id: ID @id
+  image: String
+  name: String
+  fullPrice: Int
+  salePrice: Int
+}
+
+type subMenu {
+  id: ID @id
+  image: String
+  name: String
+  fullPrice: Int
+  salePrice: Int
+}
+
+type Post {
+  id: ID! @id
+  location: String
+  caption: String!
+  user: User @relation(name: "PostsOfUser")
+  files: [File!]! @relation(name: "FilesOfPost", onDelete: CASCADE)
+  likes: [Like!]! @relation(name: "LikeOfPost", onDelete: CASCADE)
+  comments: [Comment!]! @relation(name: "CommentOfPost", onDelete: CASCADE)
+}
