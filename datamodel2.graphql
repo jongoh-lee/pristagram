@@ -1,52 +1,52 @@
 type User {
-  id: ID! @id
+  id: ID @id 
 #회원가입
   email: String! @unique
-  phoneNumber: Int! @unique
+  phoneNumber: Int @unique
   lastName: String!
-  firstName: String! @default(value: "")
-  birthDate: DateTime!
+  firstName: String! @default(value "")
+  birthDate: String
   nickName: String! @unique
 #로그인
-  loginSecret:String
+  loginSecret: String
 #정보등록
   avatar: String
   introduce: String
   location: String
 #SNS 기능
   likes: [Like!]! @relation(name: "LikesOfUser", onDelete: CASCADE)
-  comments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
+  reviewComments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
   following: [User!]! @relation(name: "FollowRelation")
   followers: [User!]! @relation(name: "FollowRelation")
-#단골 > modeling 방식 택 일
-  dangols: [Franchise!] @relation(name:"DangolList")
-  dangols: [Dangol!] @relation(name:"DangolOfUser")
+#단골 > typeing 방식 택 일
+  dangoling: [Franchise!] @relation(name:"DangolList")
+  //dangols: [Dangol!] @relation(name:"DangolOfUser")
 
-  posts: [Post!]! @relation(name: "PostsOfUser", onDelete: CASCADE)
+  posts: [Post!]! @relation(name:"PostsOfUser", onDelete: CASCADE)
 #주변 음식점
   arounds: [Around!]!
 #채팅 - 프랜차이즈 문의 채팅
   rooms: [FranchiseRoom!]!
 #입점 업체 등록
-  franchises:[Franchise!]! @relation(name:"OwnerOfFranchise")
+  franchise: Franchise @relation(name: "OwnerOfFranchise", onDelete: CASCADE)
 #공유 음식점 등록
-  shops:[Shop!]! @relation(name:"OwnerOfMyShop")
+  space: Space @relation(name:"OwnerOfMyShop")
 }
 
 type Dangol {
   id: ID @id
   user: User @relation(name:"DangolOfUser")
-  franchise: [Franchise!] @relation(name:"DangolOfFranchise")
+  franchise: Franchise @relation(name:"DangolOfFranchise")
 }
 
 type Post {
   id: ID! @id
-  location: Franchise @relation(name:"FranchisePosts")
-  taste: String
   user: User @relation(name:"PostsOfUser")
-  file: [File!]! @relation(name:"FilesOfPost", onDelete: CASCADE)
-  likes: [Like!]! @relation(name: "LikeOfPost", onDelete: CASCADE)
-  comments: [Comment!]! @relation(name: "CommentOfPost", onDelete: CASCADE)
+  location: Franchise @relation(name:"LocationOfPost")
+  review: String
+  review: [File!]! @relation(name:"FilesOfPost", onDelete CASCADE)
+  likes: [Like!]! @relation(name: "LikeOfPost", onDelete CASCADE)
+  comments: [Comment!]! @relation(name: "CommentOfPost", onDelete CASCADE)
 }
 
 type Like {
@@ -56,24 +56,24 @@ type Like {
 }
 
 type Comment {
-  id: ID! @id
-  text: String!
-  user: User @relation(name: "CommentsOfUser")
-  post: Post @relation(name: "CommentOfPost")
+  id ID! @id
+  text String!
+  user User @relation(name: "CommentsOfUser")
+  post Post @relation(name: "CommentOfPost")
 }
 
-type File {
+type PostFile {
   id: ID @id
   url: String!
   post: Post @relation(name:"FilesOfPost")
 }
  
-#-------------  입점 업체 Modeling  ----------
+#-------------  입점 업체 typeing  ----------
 
 type Franchise {
   id: ID @id
   user: User! @relation(name:"OwnerOfFranchise")
-  franchiseName: String! @relation(name:"FranchisePosts")
+  franchiseName: String! @relation(name:"LocationOfPost")
   sort: String!
   location: String
 #메인 메뉴
@@ -128,7 +128,7 @@ type Member {
   franchise: Franchise @relation(name:"MemberList")
 }
 
-#------------- 점주 Modeling  ----------
+#------------- 점주 typeing  ----------
 
 type Owner {
   id: ID @id

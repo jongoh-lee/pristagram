@@ -25,7 +25,7 @@ export default {
       try {
         const existingLike = await prisma.$exists.like(filterOptions);
         if (existingLike) {
-          //왜 deleteManyLikes를 쓰나요?
+          //왜 deleteManyLikes를 쓰나요? like의 아이디를 불러오기 귀찮아서
           await prisma.deleteManyLikes(filterOptions);
         } else {
           await prisma.createLike({

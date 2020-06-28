@@ -5,7 +5,6 @@ type User {
   email: String! @unique
   firstName: String @default(value: "")
   lastName: String
-  bio: String
   following: [User!]! @relation(name: "FollowRelation")
   followers: [User!]! @relation(name: "FollowRelation")
   posts: [Post!]! @relation(name: "PostsOfUser", onDelete: CASCADE)
@@ -13,6 +12,7 @@ type User {
   comments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
   rooms: [Room!]!
   loginSecret:String
+  profile: Profile @relation(name: "ProfileOfUser", onDelete: CASCADE)
 }
 
 type Post {
@@ -56,4 +56,13 @@ type Message {
   from: User! @relation(name: "From")
   to: User! @relation(name: "To")
   room: Room!
+}
+
+type Profile {
+  id: ID! @id
+  user: User! @relation(link: INLINE, name: "ProfileOfUser")
+  mainMenu: String!
+  foodGuide: String!
+  career: String!
+  contact: Int!
 }

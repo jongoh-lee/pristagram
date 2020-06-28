@@ -8,7 +8,6 @@ type User {
   fullName: String
   isFollowing: Boolean!
   isSelf: Boolean!
-  bio: String
   following: [User!]! 
   followingCount: Int!
   followers: [User!]! 
@@ -20,6 +19,7 @@ type User {
   loginSecret:String
   createdAt: String
   updatedAt: String
+  profile: Profile
 }
 
 type Post {
@@ -79,3 +79,13 @@ type Message {
   updatedAt: String
 }
 
+type Profile {
+  id: ID!
+  user: User!
+  mainMenu: String!
+  foodGuide: String!
+  career: String!
+  contact: Int!
+  createdAt: String
+  updatedAt: String
+}
