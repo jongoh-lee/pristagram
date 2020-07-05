@@ -12,7 +12,7 @@ type User {
   comments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
   rooms: [Room!]!
   loginSecret:String
-  profile: Profile @relation(name: "ProfileOfUser", onDelete: CASCADE)
+  profile: Profile @relation(onDelete: CASCADE)
 }
 
 type Post {
@@ -60,9 +60,10 @@ type Message {
 
 type Profile {
   id: ID! @id
-  user: User! @relation(link: INLINE, name: "ProfileOfUser")
+  user: User!  @relation(link:INLINE)
   mainMenu: String!
   foodGuide: String!
   career: String!
-  contact: Int!
+  contact: String!
+  profileState: Int!
 }

@@ -1,9 +1,8 @@
 type Mutation {
-    createProfile(
+    editProfile(
         mainMenu:String!
         foodGuide:String!
         career:String!
         contact:String!
-        profileState:Int!
     ):Profile!
 }

@@ -1,22 +1,23 @@
 type User {
-  id: ID! 
+  id: ID!
   avatar: String
-  username: String! 
-  email: String! 
+  username: String!
+  email: String!
   firstName: String
   lastName: String
   fullName: String
   isFollowing: Boolean!
   isSelf: Boolean!
-  following: [User!]! 
+  following: [User!]!
   followingCount: Int!
-  followers: [User!]! 
+  followers: [User!]!
   followersCount: Int!
   posts: [Post!]!
+  postsCount: Int!
   likes: [Like!]!
   comments: [Comment!]!
   rooms: [Room!]!
-  loginSecret:String
+  loginSecret: String!
   createdAt: String
   updatedAt: String
   profile: Profile
@@ -85,7 +86,8 @@ type Profile {
   mainMenu: String!
   foodGuide: String!
   career: String!
-  contact: Int!
+  contact: String!
+  profileState: Int
   createdAt: String
   updatedAt: String
 }
