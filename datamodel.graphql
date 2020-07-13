@@ -60,10 +60,14 @@ type Message {
 
 type Profile {
   id: ID! @id
-  user: User!  @relation(link:INLINE)
-  mainMenu: String!
+  user: User!  @relation(link:TABLE)
+  menuImage: String!
+  menuName: String!
+  fullPrice: Int!
+  salePrice: Int!
   foodGuide: String!
   career: String!
   contact: String!
+  sector: String!
   profileState: Int!
 }

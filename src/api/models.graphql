@@ -83,10 +83,14 @@ type Message {
 type Profile {
   id: ID!
   user: User!
-  mainMenu: String!
+  menuImage: String!
+  menuName: String!
+  fullPrice: Int!
+  salePrice: Int!
   foodGuide: String!
   career: String!
   contact: String!
+  sector: String!
   profileState: Int
   createdAt: String
   updatedAt: String

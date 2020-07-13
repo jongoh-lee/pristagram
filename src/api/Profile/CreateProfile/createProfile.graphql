@@ -1,9 +1,12 @@
 type Mutation {
     createProfile(
-        mainMenu:String!
+        menuImage:String!
+        menuName:String!
+        salePrice: Int!
         foodGuide:String!
         career:String!
         contact:String!
         profileState:Int!
+        sector: String!
     ):Profile!
 }

@@ -6,13 +6,13 @@ export default {
     requestSecret: async (_, args) => {
       const { email } = args;
       const loginSecret = generateSecret();
-      try {
+      const exist = await prisma.$exists.user({email})
+      if(exist){
         await sendSecretMail(email, loginSecret);
         await prisma.updateUser({ data: { loginSecret }, where: { email } });
         return true;
-      } catch (e) {
-        return false;
       }
+        return false;
     }
   }
 };

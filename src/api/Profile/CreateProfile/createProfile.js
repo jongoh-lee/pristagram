@@ -5,13 +5,17 @@ export default {
         createProfile: async(_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user } = request;
-            const { mainMenu, foodGuide, career, contact, profileState } = args;
+            const { menuImage, menuName, salePrice, foodGuide, career, contact, profileState, sector } = args;
             const profile = await prisma.createProfile({
-                mainMenu,
+                menuImage, 
+                menuName, 
+                salePrice,
+                fullPrice:salePrice,
                 foodGuide,
                 career,
                 contact,
                 profileState,
+                sector,
                 user: {connect: { id: user.id}}
             })
             return profile;
