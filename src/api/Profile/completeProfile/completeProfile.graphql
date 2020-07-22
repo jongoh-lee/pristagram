@@ -1,34 +1,25 @@
+input CreateSubmenu {
+    menuImage: String!
+    menuName: String!
+    fullPrice: Int!
+    salePrice: Int!
+}
+
+input CreateMember {
+    image: String!
+    name: String!
+    position: String!
+    career: String!
+}
+
 type Mutation {
     completeProfile(
         shopName:String!
         region:String!
-        sort:String!
+        classification:String!
         mainImage:String!
-
-        #단일 품목 정보
-        #menuImage:String!
-        #menuName:String!
-        #salePrice: Int!
-        #fullPrice: Int!
-        #foodGuide:String!
-        #origin: String!
-
-        #subMenus:[SubMenu]!
-        #newMenus:[SubMenu]!
-
-        #members:[Member]!
-        #career:String!
-        #
-        #profileState:Int!
-        #
-        #mainMenuName:String
-        #mainMenuFullPrice:String
-        #mainMenuSalePrice:String
-#
-        #foodGuide:String
-        #origin:String
-        #team:Team
-
-
+        submenus: [CreateSubmenu!]
+        members: [CreateMember!]
+        profileState: Int!
     ):Profile!
 }

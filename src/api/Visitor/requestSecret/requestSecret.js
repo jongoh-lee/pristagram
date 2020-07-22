@@ -10,6 +10,9 @@ export default {
       if(exist){
         await sendSecretMail(email, loginSecret);
         await prisma.updateUser({ data: { loginSecret }, where: { email } });
+        setTimeout(async()=>{
+          await prisma.updateUser({ data: { loginSecret : "" }, where: { email } });
+        },[180000])
         return true;
       }
         return false;

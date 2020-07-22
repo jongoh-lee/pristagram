@@ -1,0 +1,16 @@
+input EditShopImage {
+    id: String!
+    type: IMAGE_TYPE!
+    url: String!
+}
+
+type Mutation {
+    editEnrollShop(
+        shopImages: [EditShopImage!]!
+        location: String!
+        registration: String!
+        classification: String!
+        contact: String!
+        ownerState: Int!
+    ):Owner!
+}

@@ -1,0 +1,24 @@
+input CreateShopImage {
+    type: IMAGE_TYPE!
+    url: String!
+}
+
+enum IMAGE_TYPE {
+  EXTERIOR
+  HALL
+  KITCHEN
+  TABLEWARE
+  CLEANER
+  ECT
+}
+
+type Mutation {
+    enrollShop(
+        shopImages: [CreateShopImage!]!
+        location: String!
+        registration: String!
+        classification: String!
+        contact: String!
+        ownerState: Int!
+    ):Owner!
+}
