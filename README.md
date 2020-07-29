@@ -117,3 +117,94 @@ Clone insta with React + Prisma + Graphql + Nodejs
 - 로그아웃
 - 알림설정
 - 테마 변경
+
+5. facility 연습
+type Facility {
+  id: ID! @id
+  owner: Owner! @relation(link:TABLE)
+  #fridgeBox
+  size_25: Boolean! @default(value: "false")
+  size_30: Boolean! @default(value: "false")
+  size_45: Boolean! @default(value: "false")
+  size_65: Boolean! @default(value: "false")
+  fridgeBox_ect: Boolean! @default(value: "false")
+  #fidge
+  showcase: Boolean! @default(value: "false")
+  table: Boolean! @default(value: "false")
+  vat: Boolean! @default(value: "false")
+  kimchi: Boolean! @default(value: "false")
+  tuna: Boolean! @default(value: "false")
+  wine: Boolean! @default(value: "false")
+  ice_cream: Boolean! @default(value: "false")
+  fridge_ect: Boolean! @default(value: "false")
+  #fire
+  lower_stove: Boolean! @default(value: "false")
+  chinese_stove: Boolean! @default(value: "false")
+  gas_stove: Boolean! @default(value: "false")
+  house_stove: Boolean! @default(value: "false")
+  induction: Boolean! @default(value: "false")
+  fire_ect: Boolean! @default(value: "false")
+  #griller
+  fire_above: Boolean! @default(value: "false")
+  fire_below: Boolean! @default(value: "false")
+  charcoal: Boolean! @default(value: "false")
+  griller_ect: Boolean! @default(value: "false")
+  #griddle
+  size_600: Boolean! @default(value: "false")
+  size_900: Boolean! @default(value: "false")
+  size_1200: Boolean! @default(value: "false")
+  size_1500: Boolean! @default(value: "false")
+  griddle_ect: Boolean! @default(value: "false")
+  #fryer
+  electric: Boolean! @default(value: "false")
+  gas:Boolean! @default(value: "false")
+  fryer_ect:Boolean! @default(value: "false")
+  #oven
+  deck: Boolean! @default(value: "false")
+  convection: Boolean! @default(value: "false")
+  steam_convection: Boolean! @default(value: "false")
+  combi_steamer: Boolean! @default(value: "false")
+  oven_ect: Boolean! @default(value: "false")
+  #cafe
+  espresso_machine: String
+  coffee_bean_grinder: String
+  roasting_machine: String
+  ice_maker: String
+  ice_shaver: String
+  water_heater: String
+  blender: String
+  cafe_ect: String
+  #electronics
+  rice_cooker: Boolean! @default(value: "false")
+  soup_heater: Boolean! @default(value: "false")
+  dish_washer: Boolean! @default(value: "false")
+  microwave: Boolean! @default(value: "false")
+  take_out_packing: Boolean! @default(value: "false")
+  induction_small: Boolean! @default(value: "false")
+  blender_small: Boolean! @default(value: "false")
+  food_warmer: Boolean! @default(value: "false")
+  dough_machine: Boolean! @default(value: "false")
+  fermenter: Boolean! @default(value: "false")
+  noodle_cooker: Boolean! @default(value: "false")
+  noodle_maker: Boolean! @default(value: "false")
+  pasta_noodle_maker: Boolean! @default(value: "false")
+  cold_noodle_maker: Boolean! @default(value: "false")
+  soda_dispenser: Boolean! @default(value: "false")
+  soft_cone_machine: Boolean! @default(value: "false")
+  beer_dispenser: Boolean! @default(value: "false")
+  #tableware
+  spoon_holder: Boolean! @default(value: "false")
+  napkin_holder: Boolean! @default(value: "false")
+  seasoning_container: Boolean! @default(value: "false")
+  wet_wipe: Boolean! @default(value: "false")
+  opener: Boolean! @default(value: "false")
+  spoon: Boolean! @default(value: "false")
+  chopsticks: Boolean! @default(value: "false")
+  fork: Boolean! @default(value: "false")
+  knife: Boolean! @default(value: "false")
+  tray: Boolean! @default(value: "false")
+  water_bottle: Boolean! @default(value: "false")
+  kettle: Boolean! @default(value: "false")
+  가스버너: Boolean! @default(value: "false")
+  호출벨: Boolean! @default(value: "false")
+} 

@@ -1,0 +1,22 @@
+input CreateImage {
+    type: IMAGE_TYPE!
+    url: String!
+}
+
+input DeleteImage {
+    id: String!
+}
+
+input EditImage {
+    id: String!
+    type: IMAGE_TYPE!
+    url: String!
+}
+
+type Mutation {
+    completeShopImage(
+        createImages:[CreateImage]
+        deleteImages:[DeleteImage]
+        editImages:[EditImage]
+    ):Owner!
+}

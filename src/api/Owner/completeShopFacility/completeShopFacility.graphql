@@ -1,0 +1,193 @@
+input CompleteBoxFridge {
+  size_25: Boolean 
+  size_30: Boolean 
+  size_45: Boolean 
+  size_65: Boolean 
+  fridgeBox_ect: Boolean 
+}
+
+input CompleteFridge {
+  showcase: Boolean
+  table: Boolean 
+  vat: Boolean 
+  kimchi: Boolean 
+  tuna: Boolean 
+  wine: Boolean 
+  ice_cream: Boolean 
+  fridge_ect: Boolean 
+}
+
+input CompleteFire {
+  lower_stove: Boolean 
+  chinese_stove: Boolean 
+  gas_stove: Boolean 
+  house_stove: Boolean 
+  induction: Boolean 
+  fire_ect: Boolean 
+}
+
+input CompleteGriller {
+  fire_above: Boolean 
+  fire_below: Boolean 
+  charcoal: Boolean 
+  griller_ect: Boolean 
+}
+
+input CompleteGriddle {
+  size_600: Boolean 
+  size_900: Boolean 
+  size_1200: Boolean 
+  size_1500: Boolean 
+  griddle_ect: Boolean 
+}
+
+input CompleteFryer {
+  electric: Boolean 
+  gas:Boolean 
+  fryer_ect:Boolean 
+}
+
+input CompleteOven {
+  deck: Boolean 
+  convection: Boolean 
+  steam_convection: Boolean 
+  combi_steamer: Boolean 
+  oven_ect: Boolean 
+}
+
+input CompleteCafe {
+  espresso_machine: String
+  coffee_bean_grinder: String
+  roasting_machine: String
+  ice_maker: String
+  ice_shaver: String
+  water_heater: String
+  blender: String
+  cafe_ect: String
+}
+
+input CompleteElectronic {
+  rice_cooker: Boolean 
+  soup_heater: Boolean 
+  dish_washer: Boolean 
+  microwave: Boolean 
+  take_out_packer: Boolean 
+  induction_small: Boolean 
+  blender_small: Boolean 
+  food_warmer: Boolean 
+  dough_machine: Boolean 
+  fermenter: Boolean 
+  noodle_cooker: Boolean 
+  noodle_maker: Boolean 
+  pasta_noodle_maker: Boolean 
+  cold_noodle_maker: Boolean 
+  soda_dispenser: Boolean 
+  soft_cone_machine: Boolean 
+  beer_dispenser: Boolean 
+}
+
+input CompleteTableware {
+  spoon_holder: Boolean 
+  napkin_holder: Boolean 
+  seasoning_container: Boolean 
+  wet_wipe: Boolean 
+  opener: Boolean 
+  spoon: Boolean 
+  chopsticks: Boolean 
+  fork: Boolean 
+  knife: Boolean 
+  tray: Boolean 
+  water_bottle: Boolean 
+  kettle: Boolean 
+  portable_stove: Boolean 
+  table_bell: Boolean 
+}
+
+input CompleteContainer {
+  bowl_container: Boolean 
+  stainless_vat: Boolean 
+  soup_container: Boolean 
+  plastic_vat: Boolean 
+  glass_vat: Boolean 
+  side_dish_container: Boolean 
+  wash_basin: Boolean 
+  take_out_container: Boolean 
+}
+
+input CompleteGlass {
+  beverage: Boolean 
+  water: Boolean 
+  mug: Boolean 
+  soju: Boolean 
+  sake: Boolean 
+  kaoliang: Boolean 
+  shot: Boolean 
+  wine_glass: Boolean 
+  champagne: Boolean 
+  cocktail: Boolean 
+  on_the_rock: Boolean 
+  highball: Boolean 
+  glass: Boolean 
+  pitcher_500cc: Boolean 
+  pitcher_2000cc: Boolean 
+  pitcher_3000cc: Boolean 
+}
+
+input CompleteServing {
+  rice_bowl: Boolean 
+  dish: Boolean 
+  earthenware: Boolean 
+  pottery: Boolean 
+  stone_pot: Boolean 
+  pot: Boolean 
+  frying_pan: Boolean 
+  side_dish_bowl: Boolean 
+  small_dish: Boolean 
+  bowl: Boolean 
+  scissors: Boolean 
+  ladle: Boolean 
+}
+
+input CompleteCleaner {
+  detergent: Boolean 
+  clorox: Boolean 
+  abstergent: Boolean 
+  bloom: Boolean 
+  dustpan: Boolean 
+  floorcloth: Boolean 
+  bucket: Boolean 
+  hose: Boolean 
+  brush: Boolean 
+  vacuum_cleaner: Boolean 
+}
+
+input CompleteEct {
+  speaker: Boolean 
+  tv: Boolean 
+  projector: Boolean 
+  air_conditioner: Boolean 
+  wifi: Boolean 
+  cctv: Boolean 
+  kiosk: Boolean 
+  umbrella_stand: Boolean 
+}
+
+type Mutation {
+    completeShopFacility(
+        boxFridge: CompleteBoxFridge
+        fridge: CompleteFridge
+        fire: CompleteFire
+        griller: CompleteGriller
+        griddle: CompleteGriddle
+        fryer: CompleteFryer
+        oven: CompleteOven
+        cafe: CompleteCafe
+        electronic: CompleteElectronic
+        tableware: CompleteTableware
+        container: CompleteContainer
+        glass: CompleteGlass
+        serving: CompleteServing
+        cleaner: CompleteCleaner
+        ect: CompleteEct
+    ):Owner!
+}
