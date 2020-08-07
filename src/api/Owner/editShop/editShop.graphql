@@ -1,21 +1,13 @@
-input CreateShopImage {
+input EditShopImage {
+    id: String!
     type: IMAGE_TYPE!
     url: String!
 }
 
-enum IMAGE_TYPE {
-  EXTERIOR
-  HALL
-  KITCHEN
-  TABLEWARE
-  CLEANER
-  ECT
-}
-
 type Mutation {
-    enrollShop(
-        shopImages: [CreateShopImage!]!
-        location: String!
+    editShop(
+        shopImages: [EditShopImage!]!
+        address: String!
         registration: String!
         classification: String!
         contact: String!

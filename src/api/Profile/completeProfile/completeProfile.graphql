@@ -14,7 +14,7 @@ input CreateMember {
 
 type Mutation {
     completeProfile(
-        shopName:String!
+        profileName:String!
         region:String!
         classification:String!
         mainImage:String!

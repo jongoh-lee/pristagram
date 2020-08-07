@@ -1,0 +1,9 @@
+type Mutation {
+    completeShopDescription(
+        shopName: String!
+        district: String!
+        description: String!
+        precaution: String!
+        hashTag: String
+    ):Owner!
+}

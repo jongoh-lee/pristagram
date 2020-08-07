@@ -1,12 +1,9 @@
-input CompleteBoxFridge {
+input CompleteFacility {
   size_25: Boolean 
   size_30: Boolean 
   size_45: Boolean 
   size_65: Boolean 
   fridgeBox_ect: Boolean 
-}
-
-input CompleteFridge {
   showcase: Boolean
   table: Boolean 
   vat: Boolean 
@@ -15,47 +12,29 @@ input CompleteFridge {
   wine: Boolean 
   ice_cream: Boolean 
   fridge_ect: Boolean 
-}
-
-input CompleteFire {
   lower_stove: Boolean 
   chinese_stove: Boolean 
   gas_stove: Boolean 
   house_stove: Boolean 
   induction: Boolean 
   fire_ect: Boolean 
-}
-
-input CompleteGriller {
   fire_above: Boolean 
   fire_below: Boolean 
   charcoal: Boolean 
   griller_ect: Boolean 
-}
-
-input CompleteGriddle {
   size_600: Boolean 
   size_900: Boolean 
   size_1200: Boolean 
   size_1500: Boolean 
   griddle_ect: Boolean 
-}
-
-input CompleteFryer {
   electric: Boolean 
   gas:Boolean 
   fryer_ect:Boolean 
-}
-
-input CompleteOven {
   deck: Boolean 
   convection: Boolean 
   steam_convection: Boolean 
   combi_steamer: Boolean 
   oven_ect: Boolean 
-}
-
-input CompleteCafe {
   espresso_machine: String
   coffee_bean_grinder: String
   roasting_machine: String
@@ -64,9 +43,6 @@ input CompleteCafe {
   water_heater: String
   blender: String
   cafe_ect: String
-}
-
-input CompleteElectronic {
   rice_cooker: Boolean 
   soup_heater: Boolean 
   dish_washer: Boolean 
@@ -84,9 +60,6 @@ input CompleteElectronic {
   soda_dispenser: Boolean 
   soft_cone_machine: Boolean 
   beer_dispenser: Boolean 
-}
-
-input CompleteTableware {
   spoon_holder: Boolean 
   napkin_holder: Boolean 
   seasoning_container: Boolean 
@@ -101,9 +74,6 @@ input CompleteTableware {
   kettle: Boolean 
   portable_stove: Boolean 
   table_bell: Boolean 
-}
-
-input CompleteContainer {
   bowl_container: Boolean 
   stainless_vat: Boolean 
   soup_container: Boolean 
@@ -112,9 +82,6 @@ input CompleteContainer {
   side_dish_container: Boolean 
   wash_basin: Boolean 
   take_out_container: Boolean 
-}
-
-input CompleteGlass {
   beverage: Boolean 
   water: Boolean 
   mug: Boolean 
@@ -131,9 +98,6 @@ input CompleteGlass {
   pitcher_500cc: Boolean 
   pitcher_2000cc: Boolean 
   pitcher_3000cc: Boolean 
-}
-
-input CompleteServing {
   rice_bowl: Boolean 
   dish: Boolean 
   earthenware: Boolean 
@@ -146,9 +110,6 @@ input CompleteServing {
   bowl: Boolean 
   scissors: Boolean 
   ladle: Boolean 
-}
-
-input CompleteCleaner {
   detergent: Boolean 
   clorox: Boolean 
   abstergent: Boolean 
@@ -159,9 +120,6 @@ input CompleteCleaner {
   hose: Boolean 
   brush: Boolean 
   vacuum_cleaner: Boolean 
-}
-
-input CompleteEct {
   speaker: Boolean 
   tv: Boolean 
   projector: Boolean 
@@ -174,20 +132,6 @@ input CompleteEct {
 
 type Mutation {
     completeShopFacility(
-        boxFridge: CompleteBoxFridge
-        fridge: CompleteFridge
-        fire: CompleteFire
-        griller: CompleteGriller
-        griddle: CompleteGriddle
-        fryer: CompleteFryer
-        oven: CompleteOven
-        cafe: CompleteCafe
-        electronic: CompleteElectronic
-        tableware: CompleteTableware
-        container: CompleteContainer
-        glass: CompleteGlass
-        serving: CompleteServing
-        cleaner: CompleteCleaner
-        ect: CompleteEct
+      facility: CompleteFacility
     ):Owner!
 }

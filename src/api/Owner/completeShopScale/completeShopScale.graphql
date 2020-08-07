@@ -1,0 +1,7 @@
+type Mutation {
+    completeShopScale(
+        chairs:Int!
+        tables:Int!
+        scale:Int!
+    ):Owner!
+}

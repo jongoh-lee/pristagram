@@ -1,0 +1,7 @@
+type Mutation {
+    completeShopRule(
+        checkIn: Int!
+        checkOut: Int!
+        minReserve: Int!
+    ): Owner!
+}

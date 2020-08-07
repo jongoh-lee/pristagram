@@ -208,3 +208,193 @@ type Facility {
   가스버너: Boolean! @default(value: "false")
   호출벨: Boolean! @default(value: "false")
 } 
+
+ Mutation: {
+        completeShopFacility: async (_, args, {request, isAuthenticated}) => {
+            isAuthenticated(request);
+            const { user } = request;
+            const { boxFridge, fridge, fire, griller, griddle, fryer, oven, cafe, electronic, tableware, container, glass, serving, cleaner, ect, } = args;
+            const owner = await prisma.user({id : user.id}).owner();
+            const facilities = await prisma.$exists.cafe({ owner: {id: owner.id}});
+            if(!facilities){
+                await prisma.createBoxFridge({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+                await prisma.createFridge({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+                await prisma.createFire({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+                await prisma.createGriddle({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+                await prisma.createGriller({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+                await prisma.createFryer({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+                await prisma.createOven({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+                await prisma.createCafe({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+                await prisma.createElectronic({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+                await prisma.createTableware({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+                await prisma.createContainer({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+                await prisma.createGlass({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+                await prisma.createServing({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+                await prisma.createCleaner({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+                await prisma.createEct({
+                    owner: {
+                        connect: {id : owner.id}
+                    }
+                });
+            }
+            
+            const newOwner = await prisma.updateOwner({
+                where: { id: owner.id},
+                data: {
+                    boxFridge: {
+                        update:{
+                            ...boxFridge
+                        }
+                    },
+                    fridge: {
+                        update:{
+                            ...fridge
+                        }
+                    },
+                    fire: {
+                        update:{
+                            ...fire
+                        }
+                    },
+                    griller: {
+                        update:{
+                            ...griller
+                        }
+                    },
+                    griddle: {
+                        update:{
+                            ...griddle
+                        }
+                    },
+                    fryer: {
+                        update:{
+                            ...fryer
+                        }
+                    },
+                    oven: {
+                        update:{
+                            ...oven
+                        }
+                    },
+                    cafe: {
+                        update:{
+                            ...cafe
+                        }
+                    },
+                    electronic: {
+                        update:{
+                            ...electronic
+                        }
+                    },
+                    tableware: {
+                        update:{
+                            ...tableware
+                        }
+                    },
+                    container: {
+                        update:{
+                            ...container
+                        }
+                    },
+                    glass: {
+                        update:{
+                            ...glass
+                        }
+                    },
+                    serving: {
+                        update:{
+                            ...serving
+                        }
+                    },
+                    cleaner: {
+                        update:{
+                            ...cleaner
+                        }
+                    },
+                    ect: {
+                        update:{
+                            ...ect
+                        }
+                    }
+                }
+            });
+            return newOwner
+        }
+    }
+
+    
+type Mutation {
+    completeShopFacility(
+        boxFridge: CompleteBoxFridge
+        fridge: CompleteFridge
+        fire: CompleteFire
+        griller: CompleteGriller
+        griddle: CompleteGriddle
+        fryer: CompleteFryer
+        oven: CompleteOven
+        cafe: CompleteCafe
+        electronic: CompleteElectronic
+        tableware: CompleteTableware
+        container: CompleteContainer
+        glass: CompleteGlass
+        serving: CompleteServing
+        cleaner: CompleteCleaner
+        ect: CompleteEct
+    ):Owner!
+}

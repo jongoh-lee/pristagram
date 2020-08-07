@@ -5,11 +5,11 @@ export default {
         completeProfile : async(_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user } = request;
-            const { shopName, region, classification, mainImage, profileState, submenus, members } = args;
+            const { profileName, region, classification, mainImage, profileState, submenus, members } = args;
             const myProfile = await prisma.user({id : user.id}).profile();
             const profile = await prisma.updateProfile({
                 data:{
-                shopName,
+                profileName,
                 region, 
                 classification,
                 mainImage,

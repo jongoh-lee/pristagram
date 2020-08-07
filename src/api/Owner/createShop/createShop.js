@@ -2,12 +2,12 @@ import { prisma } from "../../../../generated/prisma-client";
 
 export default {
     Mutation: {
-        enrollShop: async(_, args, {request, isAuthenticated}) => {
+        createShop: async(_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user } = request;
-            const { shopImages, location, registration, classification, contact, ownerState } = args;
+            const { shopImages, address, registration, classification, contact, ownerState } = args;
             const owner = await prisma.createOwner({
-                location, 
+                address, 
                 registration,
                 classification,
                 contact,

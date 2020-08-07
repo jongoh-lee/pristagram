@@ -62,18 +62,22 @@ type Message {
 type Profile {
   id: ID! @id
   user: User!  @relation(link:TABLE)
+  
+  #mainMenu
   menuImage: String!
   menuName: String!
   fullPrice: Int!
   salePrice: Int!
+  #info
   foodGuide: String!
   career: String!
   contact: String!
+  #업종
   sector: String!
   profileState: Int!
-
-  shopName: String
+  profileName: String
   region: String
+  #세부 업종
   classification: String
   mainImage: String
   submenus: [Submenu] @relation(name: "SubmenuOfProfile", onDelete: CASCADE)
@@ -104,43 +108,46 @@ type Owner {
   user: User! @relation(link:TABLE)
   shopImages: [ShopImage!] @relation(name: "ImagesOfOwner", onDelete: CASCADE)
 #1차 신청
-  location: String!
-  registration: String!
-  classification: String!
-  contact: String!
-  ownerState: Int!
+  address: String
+  registration: String
+  classification: String
+  contact: String
+  ownerState: Int
 
-#facilities
-  boxFridge: BoxFridge @relation(onDelete: CASCADE)
-  fridge: Fridge @relation(onDelete: CASCADE)
-  fire: Fire @relation(onDelete: CASCADE)
-  griller: Griller @relation(onDelete: CASCADE)
-  griddle: Griddle @relation(onDelete: CASCADE)
-  fryer: Fryer @relation(onDelete: CASCADE)
-  oven: Oven @relation(onDelete: CASCADE)
-  cafe: Cafe @relation(onDelete: CASCADE)
-  electronic: Electronic @relation(onDelete: CASCADE)
-  tableware: Tableware @relation(onDelete: CASCADE)
-  container: Container @relation(onDelete: CASCADE)
-  glass: Glass @relation(onDelete: CASCADE)
-  serving: Serving @relation(onDelete: CASCADE)
-  cleaner: Cleaner @relation(onDelete: CASCADE)
-  ect: Ect @relation(onDelete: CASCADE)
+#facility
+  facility: Facility @relation(onDelete: CASCADE)
+
+#scale: Int 
+  chairs: Int
+  tables: Int
+  scale: Int 
+
+#description: String
+  shopName: String
+  district: String
+  description: String
+  precaution: String
+  hashTag: String
+
+#rules: Int
+  checkIn: Int
+  checkOut: Int
+  minReserve: Int
+
+#refund: Bool
+  refundAgree: Boolean
 }
 
-type BoxFridge {
+type Facility {
   id: ID! @id
   owner: Owner! @relation(link:INLINE)
+  #boxFridge
   size_25: Boolean @default(value: false)
   size_30: Boolean @default(value: false)
   size_45: Boolean @default(value: false)
   size_65: Boolean @default(value: false)
   fridgeBox_ect: Boolean @default(value: false)
-}
-
-type Fridge {
-  id: ID! @id
-  owner: Owner! @relation(link:INLINE)
+  #fridge
   showcase: Boolean @default(value: false)
   table: Boolean @default(value: false)
   vat: Boolean @default(value: false)
@@ -149,60 +156,35 @@ type Fridge {
   wine: Boolean @default(value: false)
   ice_cream: Boolean @default(value: false)
   fridge_ect: Boolean @default(value: false)
-}
-
-type Fire {
-  id: ID! @id
-  owner: Owner! @relation(link:INLINE)
+  #fire
   lower_stove: Boolean @default(value: false)
   chinese_stove: Boolean @default(value: false)
   gas_stove: Boolean @default(value: false)
   house_stove: Boolean @default(value: false)
   induction: Boolean @default(value: false)
   fire_ect: Boolean @default(value: false)
-}
-
-type Griller {
-  id: ID! @id
-  owner: Owner! @relation(link:INLINE)
+  #griller
   fire_above: Boolean @default(value: false)
   fire_below: Boolean @default(value: false)
   charcoal: Boolean @default(value: false)
   griller_ect: Boolean @default(value: false)
-}
-
-type Griddle {
-  id: ID! @id
-  owner: Owner! @relation(link:INLINE)
+  #griddle
   size_600: Boolean @default(value: false)
   size_900: Boolean @default(value: false)
   size_1200: Boolean @default(value: false)
   size_1500: Boolean @default(value: false)
   griddle_ect: Boolean @default(value: false)
-}
-
-type Fryer {
-  id: ID! @id
-  owner: Owner! @relation(link:INLINE)
+  #fryer
   electric: Boolean @default(value: false)
   gas:Boolean @default(value: false)
   fryer_ect:Boolean @default(value: false)
-
-}
-
-type Oven {
-  id: ID! @id
-  owner: Owner! @relation(link:INLINE)
+  #oven
   deck: Boolean @default(value: false)
   convection: Boolean @default(value: false)
   steam_convection: Boolean @default(value: false)
   combi_steamer: Boolean @default(value: false)
   oven_ect: Boolean @default(value: false)
-}
-
-type Cafe {
-  id: ID! @id
-  owner: Owner! @relation(link:INLINE)
+  #cafe
   espresso_machine: String
   coffee_bean_grinder: String
   roasting_machine: String
@@ -211,11 +193,7 @@ type Cafe {
   water_heater: String
   blender: String
   cafe_ect: String
-}
-
-type Electronic {
-  id: ID! @id
-  owner: Owner! @relation(link:INLINE)
+  #electronic 
   rice_cooker: Boolean @default(value: false)
   soup_heater: Boolean @default(value: false)
   dish_washer: Boolean @default(value: false)
@@ -233,11 +211,7 @@ type Electronic {
   soda_dispenser: Boolean @default(value: false)
   soft_cone_machine: Boolean @default(value: false)
   beer_dispenser: Boolean @default(value: false)
-}
-
-type Tableware {
-  id: ID! @id
-  owner: Owner! @relation(link:INLINE)
+  #tableware 
   spoon_holder: Boolean @default(value: false)
   napkin_holder: Boolean @default(value: false)
   seasoning_container: Boolean @default(value: false)
@@ -252,11 +226,7 @@ type Tableware {
   kettle: Boolean @default(value: false)
   portable_stove: Boolean @default(value: false)
   table_bell: Boolean @default(value: false)
-}
-
-type Container {
-  id: ID! @id
-  owner: Owner! @relation(link:INLINE)
+  #container
   bowl_container: Boolean @default(value:false)
   stainless_vat: Boolean @default(value:false)
   soup_container: Boolean @default(value:false)
@@ -265,11 +235,7 @@ type Container {
   side_dish_container: Boolean @default(value:false)
   wash_basin: Boolean @default(value:false)
   take_out_container: Boolean @default(value:false)
-}
-
-type Glass {
-  id: ID! @id
-  owner: Owner! @relation(link:INLINE)
+  #glass
   beverage: Boolean @default(value:false)
   water: Boolean @default(value:false)
   mug: Boolean @default(value:false)
@@ -286,11 +252,7 @@ type Glass {
   pitcher_500cc: Boolean @default(value:false)
   pitcher_2000cc: Boolean @default(value:false)
   pitcher_3000cc: Boolean @default(value:false)
-}
-
-type Serving {
-  id: ID! @id
-  owner: Owner! @relation(link:INLINE)
+  #serving 
   rice_bowl: Boolean @default(value:false)
   dish: Boolean @default(value:false)
   earthenware: Boolean @default(value:false)
@@ -303,11 +265,7 @@ type Serving {
   bowl: Boolean @default(value:false)
   scissors: Boolean @default(value:false)
   ladle: Boolean @default(value:false)
-}
-
-type Cleaner {
-  id: ID! @id
-  owner: Owner! @relation(link:INLINE)
+  #cleaner 
   detergent: Boolean @default(value:false)
   clorox: Boolean @default(value:false)
   abstergent: Boolean @default(value:false)
@@ -318,11 +276,7 @@ type Cleaner {
   hose: Boolean @default(value:false)
   brush: Boolean @default(value:false)
   vacuum_cleaner: Boolean @default(value:false)
-}
-
-type Ect {
-  id: ID! @id
-  owner: Owner! @relation(link:INLINE)
+  #ect
   speaker: Boolean @default(value:false)
   tv: Boolean @default(value:false)
   projector: Boolean @default(value:false)
