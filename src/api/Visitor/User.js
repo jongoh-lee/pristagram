@@ -2,17 +2,15 @@ import { prisma } from "../../../generated/prisma-client";
 
 export default {
     User: {
-        posts: ({ id }) => prisma.user({ id }).posts(),
+        dangols: ({ id }) => prisma.user({ id }).dangols(),
+        dangolCount: ({ id }) => 
+          prisma
+            .dangolsConnection({ where: { user: { id } }})
+            .aggregate()
+            .count(),
+
         following: ({ id }) => prisma.user({ id }).following(),
         followers: ({ id }) => prisma.user({ id }).followers(),
-        likes: ({ id }) => prisma.user({ id }).likes(),
-        comments: ({ id }) => prisma.user({ id }).comments(),
-        rooms: ({ id }) => prisma.user({ id }).rooms(),
-        postsCount: ({ id }) =>
-          prisma
-        .postsConnection({ where: { user: { id } } })
-        .aggregate()
-        .count(),
         followingCount: ({ id }) =>
           prisma
             .usersConnection({ where: { followers_some: { id } } })
@@ -21,6 +19,16 @@ export default {
         followersCount: ({ id }) =>
           prisma
             .usersConnection({ where: { following_some: { id } } })
+            .aggregate()
+            .count(),
+
+        rooms: ({ id }) => prisma.user({ id }).rooms(),
+        posts: ({ id }) => prisma.user({ id }).posts(),
+        likes: ({ id }) => prisma.user({ id }).likes(),
+        comments: ({ id }) => prisma.user({ id }).comments(),
+        postsCount: ({ id }) =>
+          prisma
+            .postsConnection({ where: { user: { id } } })
             .aggregate()
             .count(),
         fullName: parent => {
@@ -51,7 +59,7 @@ export default {
         isSelf: ( parent, _, {request} ) => {
             const { user } = request;
             const { id:parentId } = parent;
-            return user.is === parentId;
+            return user.id === parentId;
         }
     }
 };

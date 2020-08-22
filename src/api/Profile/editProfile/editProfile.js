@@ -5,11 +5,11 @@ export default {
         editProfile: async (_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user } = request;
-            const { menuImage, menuName, salePrice, foodGuide, career, contact, profileState, sector } = args;
+            const { menuImage, menuName, salePrice, foodGuide, career, contact, profileState, classification } = args;
             const profile = await prisma.user({id : user.id}).profile();
             const newProfile = await prisma.updateProfile({
                 data: {
-                    menuImage, menuName, salePrice, foodGuide, career, contact, profileState, sector
+                    menuImage, menuName, salePrice, foodGuide, career, contact, profileState, classification
                 },
                 where: { id: profile.id }
             })

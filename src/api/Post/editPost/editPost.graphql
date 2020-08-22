@@ -3,11 +3,19 @@ enum ACTIONS {
   DELETE
 }
 
+input EditFile {
+  id: String!
+  url: String!
+}
+
+input DeleteFile {
+  id: String!
+}
+
 type Mutation {
   editPost(
     id: String!
-    caption: String
-    address: String
+    tasting: String
     action: ACTIONS!
   ): Post!
 }

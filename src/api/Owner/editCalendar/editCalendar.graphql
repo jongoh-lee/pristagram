@@ -1,0 +1,17 @@
+input CreatePrice {
+    dateString: String!
+    priceState: String!
+}
+
+input UpdatePrice {
+    id: String!
+    dateString: String!
+    priceState: String!
+}   
+
+type Mutation {
+    editCalendar(
+        updatePrice:[UpdatePrice]!
+        createPrice:[CreatePrice]!
+    ):Owner!
+}

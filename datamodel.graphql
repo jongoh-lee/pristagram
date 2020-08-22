@@ -7,29 +7,39 @@ type User {
   lastName: String
   following: [User!]! @relation(name: "FollowRelation")
   followers: [User!]! @relation(name: "FollowRelation")
-  posts: [Post!]! @relation(name: "PostsOfUser", onDelete: CASCADE)
+  dangols: [Dangol!] @relation(name: "DangolsOfUser", onDelete: CASCADE)
+  
+  posts: [Post]! @relation(name: "PostsOfUser", onDelete: CASCADE)
   likes: [Like!]! @relation(name: "LikesOfUser", onDelete: CASCADE)
   comments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
+  
   rooms: [Room!]!
   loginSecret:String
+  
   profile: Profile @relation(onDelete: CASCADE)
   owner: Owner @relation(onDelete: CASCADE)
 }
 
 type Post {
   id: ID! @id
-  location: String
-  caption: String!
+  tasting: String
   user: User @relation(name: "PostsOfUser")
+  profile: Profile @relation(name: "PostsOfProfile")
   files: [File!]! @relation(name: "FilesOfPost", onDelete: CASCADE)
-  likes: [Like!]! @relation(name: "LikeOfPost", onDelete: CASCADE)
+  likes: [Like!]! @relation(name: "LikesOfPost", onDelete: CASCADE)
   comments: [Comment!]! @relation(name: "CommentOfPost", onDelete: CASCADE)
+}
+
+type Dangol {
+  id: ID! @id
+  user: User @relation(name: "DangolsOfUser")
+  profile: Profile @relation(name: "DangolsOfProfile")
 }
 
 type Like {
   id: ID! @id
   user: User @relation(name: "LikesOfUser")
-  post: Post @relation(name: "LikeOfPost")
+  post: Post @relation(name: "LikesOfPost")
 }
 
 type Comment {
@@ -62,26 +72,35 @@ type Message {
 type Profile {
   id: ID! @id
   user: User!  @relation(link:TABLE)
+  dangols: [Dangol] @relation(name: "DangolsOfProfile", onDelete: CASCADE)
+  classification: String!
+  profileState: Int!
+  
+  #업종
+  profileName: String
+  sector: String
+  token: Int
+  
+  #info
+  mainImage: String
+  foodGuide: String!
+  contact: String!
+  origin: String
   
   #mainMenu
   menuImage: String!
   menuName: String!
   fullPrice: Int!
   salePrice: Int!
-  #info
-  foodGuide: String!
-  career: String!
-  contact: String!
-  #업종
-  sector: String!
-  profileState: Int!
-  profileName: String
-  region: String
-  #세부 업종
-  classification: String
-  mainImage: String
   submenus: [Submenu] @relation(name: "SubmenuOfProfile", onDelete: CASCADE)
+  
+  #세부 업종
+  founderImage: String
+  career: String!
   members: [Member] @relation(name: "MemberOfProfile", onDelete: CASCADE)
+
+  #posts
+  posts: [Post!]! @relation(name: "PostsOfProfile", onDelete: CASCADE)
 }
 
 type Member {
@@ -113,7 +132,8 @@ type Owner {
   classification: String
   contact: String
   ownerState: Int
-
+#price
+  calendar: [Price]! @relation(onDelete: CASCADE)
 #facility
   facility: Facility @relation(onDelete: CASCADE)
 
@@ -136,6 +156,13 @@ type Owner {
 
 #refund: Bool
   refundAgree: Boolean
+}
+
+type Price {
+  id: ID! @id
+  owner: Owner! @relation(link: INLINE)
+  dateString: String!
+  priceState: String!
 }
 
 type Facility {

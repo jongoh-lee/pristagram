@@ -1,8 +1,20 @@
-input CreateSubmenu {
+input CreateMenu {
     menuImage: String!
     menuName: String!
     fullPrice: Int!
     salePrice: Int!
+}
+
+input EditMenu {
+    id: String!
+    menuImage: String!
+    menuName: String!
+    fullPrice: Int!
+    salePrice: Int!
+}
+
+input DeleteMenu {
+    id: String!
 }
 
 input CreateMember {
@@ -12,14 +24,37 @@ input CreateMember {
     career: String!
 }
 
+input EditMember {
+    id: String!
+    image: String!
+    name: String!
+    position: String!
+    career: String!
+}
+
+input DeleteMember {
+   id: String!
+}
+
 type Mutation {
     completeProfile(
         profileName:String!
-        region:String!
-        classification:String!
+        sector:String!
+        token:Int!
         mainImage:String!
-        submenus: [CreateSubmenu!]
-        members: [CreateMember!]
+        foodGuide: String!
+        origin: String
+
+        fullPrice: Int!
+        createMenus: [CreateMenu!]
+        editMenus: [EditMenu!]
+        deleteMenus: [DeleteMenu!]
+        
+        founderImage: String
+        createMembers: [CreateMember!]
+        editMembers: [EditMember!]
+        deleteMembers: [DeleteMember!]
+
         profileState: Int!
     ):Profile!
 }

@@ -15,6 +15,8 @@ type User {
   posts: [Post!]!
   postsCount: Int!
   likes: [Like!]!
+  dangols: [Dangol!]
+  dangolCount: Int!
   comments: [Comment!]!
   rooms: [Room!]!
   loginSecret: String!
@@ -22,13 +24,15 @@ type User {
   updatedAt: String
   profile: Profile
   owner: Owner
+
+
 }
 
 type Post {
   id: ID! 
-  location: String
-  caption: String!
+  tasting: String
   user: User!
+  profile: Profile!
   isLiked:Boolean!
   files: [File!]!
   likes: [Like!]!
@@ -37,6 +41,14 @@ type Post {
   createdAt: String
   updatedAt: String
 }
+
+
+type Dangol {
+  id: ID! 
+  user: User 
+  profile: Profile 
+}
+
 
 type Like {
   id: ID! 
@@ -84,23 +96,35 @@ type Message {
 type Profile {
   id: ID!
   user: User!
+  dangols: [Dangol] 
+  dangolCount: Int!
+  isDangol: Boolean!
+  isSelf: Boolean!
+  classification: String!
+  profileState: Int
+  
+  profileName: String
+  sector: String
+  token: Int
+  
+  mainImage: String
+  foodGuide: String!
+  contact: String!
+  origin: String
+  
   menuImage: String!
   menuName: String!
   fullPrice: Int!
   salePrice: Int!
-  foodGuide: String!
-  career: String!
-  contact: String!
-  sector: String!
-  sort: String
-  profileState: Int
 
-  profileName: String
-  region: String
-  classification: String
-  mainImage: String
   submenus: [Submenu]
+  career: String!
+  
+  founderImage: String
   members: [Member] 
+
+  #posts
+  posts: [Post!]!
   createdAt: String
   updatedAt: String
 }
@@ -136,6 +160,9 @@ type Owner {
   contact: String
   ownerState: Int
 
+  #price
+  calendar: [Price]!
+
   #total
   facility: Facility
 
@@ -159,6 +186,14 @@ type Owner {
   #refund: Bool
   refundAgree: Boolean
 }
+
+type Price {
+  id: ID!
+  owner: Owner! 
+  dateString: String!
+  priceState: String!
+}
+
 
 type Facility {
   id: ID!

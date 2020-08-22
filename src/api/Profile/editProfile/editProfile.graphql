@@ -7,6 +7,6 @@ type Mutation {
         career:String!
         contact:String!
         profileState:Int!
-        sector: String!
+        classification: String!
     ):Profile!
 }

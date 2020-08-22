@@ -1,3 +1,11 @@
+input CreateFile {
+    url: String!
+}
+
 type Mutation {
-    upload(caption:String! files: [String!]):Post!
+    upload(
+        id:String! 
+        tasting:String
+        createFiles: [CreateFile!]!
+    ):Profile!
 }
