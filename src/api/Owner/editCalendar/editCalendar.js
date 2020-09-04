@@ -5,10 +5,10 @@ export default {
         editCalendar: async (_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user } = request;
-            const { updatePrice, createPrice } = args;
+            const { updatePrice, createPrice, deletePrice } = args;
             let _update = updatePrice.map( el => (
                 {
-                    data: { isSelf: el.isSelf, perDay: el.perDay, off: el.off},
+                    data: { dateString:el.dateString, priceState: el.priceState},
                     where: { id : el.id }
                 }
             ));
@@ -16,9 +16,10 @@ export default {
             const newOwner = await prisma.updateOwner({
                 where: { id: owner.id },
                 data: {
-                    price: {
+                    calendar: {
                         updateMany: _update,
-                        create: createPrice
+                        create: createPrice,
+                        deleteMany: deletePrice
                     }
                 }
             });

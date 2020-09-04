@@ -3,6 +3,10 @@ input CreatePrice {
     priceState: String!
 }
 
+input DeletePrice {
+    id: String!
+}
+
 input UpdatePrice {
     id: String!
     dateString: String!
@@ -13,5 +17,6 @@ type Mutation {
     editCalendar(
         updatePrice:[UpdatePrice]!
         createPrice:[CreatePrice]!
+        deletePrice:[DeletePrice]!
     ):Owner!
 }

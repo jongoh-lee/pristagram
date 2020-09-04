@@ -5,7 +5,7 @@ export default {
         editShop: async (_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user } = request;
-            const { shopImages, address, registration, classification, contact, ownerState } = args;
+            const { shopImages, address, addressDetail, registration, classification, contact, ownerState } = args;
             const owner = await prisma.user({id : user.id}).owner();
             let newImages = shopImages.map( el => (
                 {
@@ -20,6 +20,7 @@ export default {
                         updateMany: newImages
                     },
                     address, 
+                    addressDetail,
                     registration, 
                     classification, 
                     contact, 

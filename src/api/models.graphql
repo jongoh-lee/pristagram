@@ -15,7 +15,7 @@ type User {
   posts: [Post!]!
   postsCount: Int!
   likes: [Like!]!
-  dangols: [Dangol!]
+  dangols: [Dangol!]!
   dangolCount: Int!
   comments: [Comment!]!
   rooms: [Room!]!
@@ -38,6 +38,7 @@ type Post {
   likes: [Like!]!
   comments: [Comment!]!
   likeCount: Int!
+  isSelf: Boolean!
   createdAt: String
   updatedAt: String
 }
@@ -96,7 +97,7 @@ type Message {
 type Profile {
   id: ID!
   user: User!
-  dangols: [Dangol] 
+  dangols: [Dangol!]! 
   dangolCount: Int!
   isDangol: Boolean!
   isSelf: Boolean!
@@ -117,14 +118,16 @@ type Profile {
   fullPrice: Int!
   salePrice: Int!
 
-  submenus: [Submenu]
+  submenus: [Submenu!]!
   career: String!
   
   founderImage: String
-  members: [Member] 
+  members: [Member!]!
 
   #posts
   posts: [Post!]!
+  postsCount: Int!
+  myPosts: Int!
   createdAt: String
   updatedAt: String
 }
@@ -154,11 +157,12 @@ type Owner {
   user: User! 
   shopImages: [ShopImage!] 
 
-  address: String
-  registration: String
-  classification: String
-  contact: String
-  ownerState: Int
+  address: String!
+  addressDetail: String!
+  registration: String!
+  classification: String!
+  contact: String!
+  ownerState: Int!
 
   #price
   calendar: [Price]!

@@ -5,14 +5,14 @@ export default {
     myCalendar: async (_, __, { request, isAuthenticated }) => {
       isAuthenticated(request);
       const { user } = request;
-      const owner = await prisma.user({id: user.id}).owner();
-      return await  prisma.prices({
-        where: {
-          owner:{
-            id: owner.id
-          }
-        }
-      })
+      return await prisma.user({id: user.id}).owner();
+      //return await  prisma.prices({
+      //  where: {
+      //    owner:{
+      //      id: owner.id
+      //    }
+      //  }
+      //})
     }
   }
 };

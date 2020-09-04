@@ -11,7 +11,7 @@ export default {
             const { user } = request;
             const { id } = parent;
             return prisma.$exists.dangol({
-                // 내 정보(user.id) 중에 팔로잉하는 유저의 정보(parent.id) 
+                // exsit는 배열 형태로 전달 => 단골 리스트에 내 정보와 업체 정보가 있는가?
                 AND:[
                     {
                         user:{
@@ -40,6 +40,32 @@ export default {
             const profileOwner = await prisma.profile({ id }).user();
             return profileOwner.id === user.id;
         },
-    }
+        postsCount: ({ id }) =>
+        prisma
+            .postsConnection({ where: { profile: { id } } })
+            .aggregate()
+            .count(),
+        //내가 쓴 포스트 수
+        myPosts: async ( parent, _, {request} ) => {
+            const { user } = request;
+            const { id } = parent;
+
+            return await prisma
+                .postsConnection({ 
+                where: {
+                        user:{
+                            id: user.id
+                        },
+                        profile:{
+                            id
+                        }
+                    },
+                        
+                })
+                .aggregate()
+                .count()
+        },
+        
+    }   
 };
 

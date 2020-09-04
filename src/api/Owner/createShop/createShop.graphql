@@ -16,6 +16,7 @@ type Mutation {
     createShop(
         shopImages: [CreateShopImage!]!
         address: String!
+        addressDetail: String!
         registration: String!
         classification: String!
         contact: String!

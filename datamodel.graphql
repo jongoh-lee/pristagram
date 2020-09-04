@@ -7,9 +7,9 @@ type User {
   lastName: String
   following: [User!]! @relation(name: "FollowRelation")
   followers: [User!]! @relation(name: "FollowRelation")
-  dangols: [Dangol!] @relation(name: "DangolsOfUser", onDelete: CASCADE)
+  dangols: [Dangol!]! @relation(name: "DangolsOfUser", onDelete: CASCADE)
   
-  posts: [Post]! @relation(name: "PostsOfUser", onDelete: CASCADE)
+  posts: [Post!]! @relation(name: "PostsOfUser", onDelete: CASCADE)
   likes: [Like!]! @relation(name: "LikesOfUser", onDelete: CASCADE)
   comments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
   
@@ -72,7 +72,7 @@ type Message {
 type Profile {
   id: ID! @id
   user: User!  @relation(link:TABLE)
-  dangols: [Dangol] @relation(name: "DangolsOfProfile", onDelete: CASCADE)
+  dangols: [Dangol!]! @relation(name: "DangolsOfProfile", onDelete: CASCADE)
   classification: String!
   profileState: Int!
   
@@ -92,12 +92,12 @@ type Profile {
   menuName: String!
   fullPrice: Int!
   salePrice: Int!
-  submenus: [Submenu] @relation(name: "SubmenuOfProfile", onDelete: CASCADE)
+  submenus: [Submenu!]! @relation(name: "SubmenuOfProfile", onDelete: CASCADE)
   
   #세부 업종
   founderImage: String
   career: String!
-  members: [Member] @relation(name: "MemberOfProfile", onDelete: CASCADE)
+  members: [Member!]! @relation(name: "MemberOfProfile", onDelete: CASCADE)
 
   #posts
   posts: [Post!]! @relation(name: "PostsOfProfile", onDelete: CASCADE)
@@ -127,11 +127,12 @@ type Owner {
   user: User! @relation(link:TABLE)
   shopImages: [ShopImage!] @relation(name: "ImagesOfOwner", onDelete: CASCADE)
 #1차 신청
-  address: String
-  registration: String
-  classification: String
-  contact: String
-  ownerState: Int
+  address: String!
+  addressDetail: String!
+  registration: String!
+  classification: String!
+  contact: String!
+  ownerState: Int!
 #price
   calendar: [Price]! @relation(onDelete: CASCADE)
 #facility

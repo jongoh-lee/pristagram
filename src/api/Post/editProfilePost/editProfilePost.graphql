@@ -1,6 +1,6 @@
 enum ACTIONS {
-  EDIT
   DELETE
+  EDIT
 }
 
 input EditFile {
@@ -13,9 +13,13 @@ input DeleteFile {
 }
 
 type Mutation {
-  editPost(
-    id: String!
+  editProfilePost(
+    profileId: String!
+    postId: String!
     tasting: String
+    createFiles: [CreateFile]
+    editFiles: [EditFile]
+    deleteFiles: [DeleteFile]
     action: ACTIONS!
-  ): Post!
+  ): Profile!
 }

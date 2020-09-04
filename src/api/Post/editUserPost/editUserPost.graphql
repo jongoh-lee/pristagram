@@ -1,0 +1,10 @@
+type Mutation {
+  editUserPost(
+    postId: String!
+    tasting: String
+    createFiles: [CreateFile]
+    editFiles: [EditFile]
+    deleteFiles: [DeleteFile]
+    action: ACTIONS!
+  ): User!
+}

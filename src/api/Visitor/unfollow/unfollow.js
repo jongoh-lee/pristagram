@@ -19,7 +19,7 @@ export default {
           }
         })
         return true;
-      } catch(e) {
+      } catch(error) {
         return false;
       }
     }

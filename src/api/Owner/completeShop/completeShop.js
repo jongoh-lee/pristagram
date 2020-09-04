@@ -2,7 +2,7 @@ import { prisma } from "../../../../generated/prisma-client";
 
 export default {
     Mutation:{
-        seeMyShop: async (_, args, {request, isAuthenticated}) => {
+        completeShop: async (_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user } = request;
             const { ownerState } = args;

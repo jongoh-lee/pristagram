@@ -5,26 +5,19 @@ export default {
         createShop: async(_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user } = request;
-            const { shopImages, address, registration, classification, contact, ownerState } = args;
+            const { shopImages, address, addressDetail, registration, classification, contact, ownerState } = args;
             const owner = await prisma.createOwner({
                 address, 
+                addressDetail,
                 registration,
                 classification,
                 contact,
                 ownerState,
+                shopImages:{
+                    create: shopImages
+                },
                 user: { connect : { id: user.id}}
             });
-            shopImages.forEach(
-                async image => 
-                await prisma.createShopImage({
-                    ...image,
-                    owner: {
-                        connect:{
-                            id: owner.id
-                        }
-                    }
-                })
-            );
             return owner;
         }
     }

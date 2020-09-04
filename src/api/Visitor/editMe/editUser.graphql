@@ -1,5 +1,5 @@
 type Mutation {
-  editUser(
+  editMe(
     username: String!
     avatar: String
   ): User!
