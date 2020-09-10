@@ -7,8 +7,9 @@ export default {
             const exist = await prisma.$exists.user({ username });
             if(exist){
                 return false
+            }else{
+                return true
             }
-            return true
         }
     }
 }

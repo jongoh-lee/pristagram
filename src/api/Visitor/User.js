@@ -23,9 +23,12 @@ export default {
             .count(),
 
         rooms: ({ id }) => prisma.user({ id }).rooms(),
-        posts: ({ id }) => prisma.user({ id }).posts(),
+        posts: async ({ id }) => {
+            let _posts = await prisma.user({ id }).posts()
+            return _posts.reverse()
+        },
         likes: ({ id }) => prisma.user({ id }).likes(),
-        comments: ({ id }) => prisma.user({ id }).comments(),
+        postComments: ({ id }) => prisma.user({ id }).postComments(),
         postsCount: ({ id }) =>
           prisma
             .postsConnection({ where: { user: { id } } })

@@ -7,7 +7,6 @@ export default {
       const { username } = args;
       const { user } = request;
       if(username === user.username){
-        console.log(username === user.username)
           return false
       } else {
           return await prisma.$exists.user({ username });

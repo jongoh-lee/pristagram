@@ -5,5 +5,16 @@ export default {
         shopImages: ({id}) => prisma.owner({id}).shopImages(),
         facility: ({id}) => prisma.owner({id}).facility(),
         calendar: ({id}) => prisma.owner({id}).calendar(),
+        isSelf: async ( parent, _, {request} ) => {
+            const { user } = request;
+            const { id } = parent;
+            const owner = await prisma.owner({ id }).user();
+            return owner.id === user.id;
+        },
+        profileState:async ( parent, _, {request} ) => {
+            const { user } = request;
+            const profile = await prisma.user({ id: user.id }).profile();
+            return profile.profileState;
+        },
     }
 }

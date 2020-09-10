@@ -28,7 +28,7 @@ export const uploadController = (req, res) => {
   const {
     files
   } = req;
-  console.log(files);
+  console.log(files)
   let location = files.map(el => (
     {
         url: el.location

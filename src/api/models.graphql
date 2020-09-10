@@ -17,7 +17,7 @@ type User {
   likes: [Like!]!
   dangols: [Dangol!]!
   dangolCount: Int!
-  comments: [Comment!]!
+  postComments: [PostComment!]!
   rooms: [Room!]!
   loginSecret: String!
   createdAt: String
@@ -36,7 +36,7 @@ type Post {
   isLiked:Boolean!
   files: [File!]!
   likes: [Like!]!
-  comments: [Comment!]!
+  postComments: [PostComment!]!
   likeCount: Int!
   isSelf: Boolean!
   createdAt: String
@@ -59,7 +59,7 @@ type Like {
   updatedAt: String
 }
 
-type Comment {
+type PostComment {
   id: ID! 
   text: String!
   user: User!
@@ -128,8 +128,16 @@ type Profile {
   posts: [Post!]!
   postsCount: Int!
   myPosts: Int!
+  favorites: [Favorite!]!
   createdAt: String
   updatedAt: String
+}
+
+
+type Favorite {
+  id: ID!
+  owner: Owner 
+  profile: Profile 
 }
 
 type Member {
@@ -159,10 +167,15 @@ type Owner {
 
   address: String!
   addressDetail: String!
+  latitude: Float
+  longitude: Float
   registration: String!
   classification: String!
   contact: String!
   ownerState: Int!
+
+  isSelf: Boolean!
+  profileState: Int
 
   #price
   calendar: [Price]!
@@ -189,6 +202,9 @@ type Owner {
 
   #refund: Bool
   refundAgree: Boolean
+
+  #즐겨찾기
+  favorites: [Favorite!]!
 }
 
 type Price {

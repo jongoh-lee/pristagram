@@ -33,7 +33,10 @@ export default {
             })
             .aggregate()
             .count(),
-        posts: ({ id }) => prisma.profile({ id }).posts(),
+        posts: async ({ id }) => {
+            let _posts = await prisma.profile({ id }).posts()
+            return _posts.reverse()
+        },
         isSelf: async ( parent, _, {request} ) => {
             const { user } = request;
             const { id } = parent;
@@ -65,7 +68,7 @@ export default {
                 .aggregate()
                 .count()
         },
-        
+        favorites:({ id }) => prisma.profile({ id }).favorites(),
     }   
 };
 

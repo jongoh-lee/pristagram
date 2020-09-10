@@ -11,7 +11,7 @@ type User {
   
   posts: [Post!]! @relation(name: "PostsOfUser", onDelete: CASCADE)
   likes: [Like!]! @relation(name: "LikesOfUser", onDelete: CASCADE)
-  comments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
+  postComments: [PostComment!]! @relation(name: "PostCommentOfUser", onDelete: CASCADE)
   
   rooms: [Room!]!
   loginSecret:String
@@ -27,7 +27,7 @@ type Post {
   profile: Profile @relation(name: "PostsOfProfile")
   files: [File!]! @relation(name: "FilesOfPost", onDelete: CASCADE)
   likes: [Like!]! @relation(name: "LikesOfPost", onDelete: CASCADE)
-  comments: [Comment!]! @relation(name: "CommentOfPost", onDelete: CASCADE)
+  postComments: [PostComment!]! @relation(name: "PostCommentOfPost", onDelete: CASCADE)
 }
 
 type Dangol {
@@ -42,11 +42,11 @@ type Like {
   post: Post @relation(name: "LikesOfPost")
 }
 
-type Comment {
+type PostComment {
   id: ID! @id
   text: String!
-  user: User @relation(name: "CommentsOfUser")
-  post: Post @relation(name: "CommentOfPost")
+  user: User @relation(name: "PostCommentOfUser")
+  post: Post @relation(name: "PostCommentOfPost")
 }
 
 type File {
@@ -101,6 +101,15 @@ type Profile {
 
   #posts
   posts: [Post!]! @relation(name: "PostsOfProfile", onDelete: CASCADE)
+
+  #즐겨찾기
+  favorites: [Favorite!]! @relation(name: "FavoritesOfProfile", onDelete: CASCADE)
+}
+
+type Favorite {
+  id: ID! @id
+  owner: Owner @relation(name: "FavoritesOfOwner")
+  profile: Profile @relation(name: "FavoritesOfProfile")
 }
 
 type Member {
@@ -129,6 +138,8 @@ type Owner {
 #1차 신청
   address: String!
   addressDetail: String!
+  latitude: Float
+  longitude: Float
   registration: String!
   classification: String!
   contact: String!
@@ -157,6 +168,9 @@ type Owner {
 
 #refund: Bool
   refundAgree: Boolean
+
+#즐겨찾기
+  favorites: [Favorite!]! @relation(name: "FavoritesOfOwner")
 }
 
 type Price {
