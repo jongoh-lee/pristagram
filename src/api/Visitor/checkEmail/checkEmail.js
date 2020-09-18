@@ -1,7 +1,7 @@
 import { prisma } from "../../../../generated/prisma-client";
 
 export default {
-    Mutation: {
+    Query: {
         checkEmail: async (_, arg) => {
             const { email } = arg;
             const exist = await prisma.$exists.user({ email });

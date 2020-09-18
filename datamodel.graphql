@@ -178,6 +178,16 @@ type Price {
   owner: Owner! @relation(link: INLINE)
   dateString: String!
   priceState: String!
+  isBooked: Boolean @default(value: false)
+}
+
+type Booking {
+  id: ID! @id
+  owner: Owner! @relation(name: "BookingOfOwner")
+  profile: Profile! @relation(name: "BookingOfProfile")
+  firstDate: String!
+  lastDate: String!
+  totalPrice: Int!
 }
 
 type Facility {

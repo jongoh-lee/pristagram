@@ -175,7 +175,7 @@ type Owner {
   ownerState: Int!
 
   isSelf: Boolean!
-  profileState: Int
+  franchiseState: Int!
 
   #price
   calendar: [Price]!
@@ -212,6 +212,7 @@ type Price {
   owner: Owner! 
   dateString: String!
   priceState: String!
+  isBooked: Boolean
 }
 
 

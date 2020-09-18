@@ -11,10 +11,14 @@ export default {
             const owner = await prisma.owner({ id }).user();
             return owner.id === user.id;
         },
-        profileState:async ( parent, _, {request} ) => {
+        franchiseState:async ( _, __, {request} ) => {
             const { user } = request;
             const profile = await prisma.user({ id: user.id }).profile();
-            return profile.profileState;
+            if(profile){
+                return profile.profileState;
+            }else{
+                return 0
+            }
         },
     }
 }

@@ -11,6 +11,7 @@ input UpdatePrice {
     id: String!
     dateString: String!
     priceState: String!
+    isBooked: Boolean
 }   
 
 type Mutation {
