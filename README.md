@@ -1,5 +1,4 @@
-# pristagram
-Clone insta with React + Prisma + Graphql + Nodejs
+# foodinside_back
 
 #기능
 
