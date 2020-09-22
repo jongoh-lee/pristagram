@@ -1,0 +1,11 @@
+type Mutation {
+    bookingShop(
+        ownerId: String!
+        firstDate: String!
+        lastDate: String!
+        dateList: [String!]!
+        totalPrice: String!
+        username: String!
+        contact: String!
+    ): Owner!
+}

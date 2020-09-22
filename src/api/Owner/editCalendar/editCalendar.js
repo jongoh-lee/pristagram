@@ -12,18 +12,30 @@ export default {
                     where: { id : el.id }
                 }
             ));
-            const owner = await prisma.user( { id: user.id }).owner();
-            const newOwner = await prisma.updateOwner({
-                where: { id: owner.id },
-                data: {
-                    calendar: {
-                        updateMany: _update,
-                        create: createPrice,
-                        deleteMany: deletePrice
-                    }
-                }
+            let _updateList = updatePrice.map(el => el.id);
+            let _deleteList = deletePrice.map(el => el.id);
+            const bookedDates = await prisma.prices({
+                where:{
+                    id_in: [..._updateList, ..._deleteList],
+                    isBooked:true
+                },
             });
-            return newOwner;
+            if(bookedDates?.length > 0){
+                throw Error("방금 누군가 공간을 예약했습니다.")
+            }else{
+                const owner = await prisma.user( { id: user.id }).owner();
+                const newOwner = await prisma.updateOwner({
+                    where: { id: owner.id },
+                    data: {
+                        calendar: {
+                            updateMany: _update,
+                            create: createPrice,
+                            deleteMany: deletePrice
+                        }
+                    }
+                });
+                return newOwner;
+            }
         }
     }
 }

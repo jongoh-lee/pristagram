@@ -7,7 +7,9 @@ import jwt from "jsonwebtoken";
 
 export const generateSecret = () => {
   const randomNumber = Math.floor(Math.random() * adjectives.length);
-  return `${adjectives[randomNumber]} ${nouns[randomNumber]}`;
+  //return `${adjectives[randomNumber]} ${nouns[randomNumber]}`;
+  return String(Math.floor(Math.random() * 1000000) + 1);
+
 };
 
 export const sendSecretMail = async (address, secret) => {
@@ -34,9 +36,34 @@ export const sendSecretMail = async (address, secret) => {
     console.log(`mail have sent to ${ address }`);
   } catch (error) {
     console.error(error);
+  }
 }
 
+export const sendReservationConfirmMail = async (username, totalPrice) => {
+  const transporter = nodemailer.createTransport(smtpTransport({
+    service: 'Gmail',
+    host:'smtp.google.com',
+    port:587,
+    secure: false,
+    auth:{
+      user:  process.env.SENDGRID_USERNAME,
+      pass: process.env.SENGRID_PASSWORD,
+    }
+  }));
 
+  const email = {
+    from: "푸드인사이드 <whddh5285@naver.com>",
+    to: "ljo.foodinside@gmail.com",
+    subject: "음식점을 예약했습니다.",
+    html: `<strong>${username}</strong>님의 총 입금액은 ${totalPrice}원 입니다.`
+  };
+
+  try {
+    await transporter.sendMail(email);
+    console.log(`mail have sent to ${ "ljo.foodinside@gmail.com" }`);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 // passport를 이용해 id를 jwt에 삽입 합니다. 이때 비밀 번호가 필요 합니다.
