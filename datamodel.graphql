@@ -104,6 +104,7 @@ type Profile {
 
   #즐겨찾기
   favorites: [Favorite!]! @relation(name: "FavoritesOfProfile", onDelete: CASCADE)
+  bookings: [Booking!]! @relation(name: "BookingOfProfile")
 }
 
 type Favorite {
@@ -171,6 +172,7 @@ type Owner {
 
 #즐겨찾기
   favorites: [Favorite!]! @relation(name: "FavoritesOfOwner")
+  bookings: [Booking!]! @relation(name: "BookingOfOwner")
 }
 
 type Price {
@@ -187,7 +189,10 @@ type Booking {
   profile: Profile! @relation(name: "BookingOfProfile")
   firstDate: String!
   lastDate: String!
-  totalPrice: Int!
+  dateList: [String!]! @scalarList(strategy: RELATION)
+  totalPrice: String!
+  isPaid: Boolean @default(value: false)
+  isCancelled: Boolean @default(value: false)
 }
 
 type Facility {
