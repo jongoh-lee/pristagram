@@ -7,6 +7,14 @@ export default {
             const { user } = request;
             const { menuImage, menuName, salePrice, foodGuide, career, contact, profileState, classification } = args;
             const profile = await prisma.user({id : user.id}).profile();
+            await prisma.updateUser({
+                where:{
+                    id: user.id
+                },
+                data:{
+                    contact
+                }
+            });
             const newProfile = await prisma.updateProfile({
                 data: {
                     menuImage, menuName, salePrice, foodGuide, career, contact, profileState, classification

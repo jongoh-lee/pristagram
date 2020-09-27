@@ -6,6 +6,14 @@ export default {
             isAuthenticated(request);
             const { user } = request;
             const { menuImage, menuName, salePrice, foodGuide, career, contact, profileState, classification } = args;
+            await prisma.updateUser({
+                where:{
+                    id: user.id
+                },
+                data:{
+                    contact
+                }
+            });
             const profile = await prisma.createProfile({
                 menuImage, 
                 menuName, 

@@ -41,6 +41,7 @@ type Mutation {
         profileName:String!
         sector:String!
         token:Int!
+        contact: String!
         mainImage:String!
         foodGuide: String!
         origin: String
