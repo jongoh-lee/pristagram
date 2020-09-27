@@ -6,6 +6,7 @@ type User {
   firstName: String
   lastName: String
   fullName: String
+  contact: String
   isFollowing: Boolean!
   isSelf: Boolean!
   following: [User!]!
@@ -129,6 +130,8 @@ type Profile {
   postsCount: Int!
   myPosts: Int!
   favorites: [Favorite!]!
+
+  bookings: [Booking!]!
   createdAt: String
   updatedAt: String
 }
@@ -205,6 +208,9 @@ type Owner {
 
   #즐겨찾기
   favorites: [Favorite!]!
+
+  #예약 내역
+  bookings: [Booking!]!
 }
 
 type Price {
@@ -213,6 +219,20 @@ type Price {
   dateString: String!
   priceState: String!
   isBooked: Boolean
+  self: Boolean!
+}
+
+type Booking {
+  id: ID! 
+  owner: Owner! 
+  profile: Profile! 
+  firstDate: String!
+  lastDate: String!
+  dateList: [String!]!
+  totalPrice: String!
+  isPaid: Boolean
+  isCancelled: Boolean 
+  refundPrice: String
 }
 
 
