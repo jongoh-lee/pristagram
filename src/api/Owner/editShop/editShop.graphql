@@ -13,5 +13,7 @@ type Mutation {
         classification: String!
         contact: String!
         ownerState: Int!
+        latitude: Float
+        longitude: Float
     ):Owner!
 }
