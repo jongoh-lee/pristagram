@@ -19,61 +19,94 @@ export default {
                     },
                     dateString_in: [...dateList],
                     isBooked:true,
-                    priceState_in: ["self", undefined]
+                    priceState_in: ["self", "undefined"]
                 },
             });
 
             if(bookedDates.length > 0){
                 throw Error("방금 누군가 먼저 예약했습니다.")
             }else{
-                //예약 불가로 변경
-                const owner = await prisma.updateOwner({
-                    where:{
-                        id: ownerId
-                    },
-                    data:{
-                        calendar:{
-                            updateMany:{
-                                where:{
-                                    dateString_in: dateList,
-                                },
-                                data:{
-                                    isBooked:true
-                                }
+                const filterOptions = {
+                    AND: [
+                        {
+                            profile: {
+                                id: profile.id
                             }
                         },
-                    }
-                });
-                //예약 생성
-                await prisma.createBooking({
-                    owner:{
-                        connect:{
+                        {
+                            owner: {
+                                id: ownerId
+                            }
+                        }
+                    ]
+                };
+                try{
+                    //문자 + 이메일 보내기
+                    await client.messages
+                    .create({
+                       body: `[푸드 인사이드]음식점 예약이 완료되었습니다. \n금일 24시 전까지 미입금 시 예약이 취소 됩니다.\n은행명:기업은행\n입금 계좌:16711283701015\n입금자:${username}\n총 결제액: ${totalPrice}원`, 
+                       from: '+12172921787',
+                       to: `+82${contact}`
+                     })
+                    .then(async message => {
+                        await sendReservationConfirmMail(username, totalPrice); 
+                        console.log(message)
+                    });
+                    //isBooked = true로 변경
+                    const owner = await prisma.updateOwner({
+                        where:{
                             id: ownerId
+                        },
+                        data:{
+                            calendar:{
+                                updateMany:{
+                                    where:{
+                                        dateString_in: dateList,
+                                    },
+                                    data:{
+                                        isBooked:true
+                                    }
+                                }
+                            },
                         }
-                    },
-                    profile:{
-                        connect:{
-                            id: profile.id
-                        }
-                    },
-                    firstDate,
-                    lastDate,
-                    totalPrice,
-                    dateList: {set: dateList}
-                });
-                //문자 + 이메일 보내기
-                await client.messages
-                .create({
-                   body: `[푸드 인사이드]음식점 예약이 완료되었습니다. \n금일 24시 전까지 미입금 시 예약이 취소 됩니다.\n은행명:기업은행\n입금 계좌:16711283701015\n입금자:${username}\n총 결제액: ${totalPrice}원`, 
-                   from: '+12172921787',
-                   to: `+82${contact}`
-                 })
-                .then(async message => {
-                    await sendReservationConfirmMail(username, totalPrice); 
-                    console.log(message)
-                });
-                return owner;
-            }
+                    });
+                    //예약 생성
+                    await prisma.createBooking({
+                        owner:{
+                            connect:{
+                                id: ownerId
+                            }
+                        },
+                        profile:{
+                            connect:{
+                                id: profile.id
+                            }
+                        },
+                        firstDate,
+                        lastDate,
+                        totalPrice,
+                        dateList: {set: dateList}
+                    });
+                    const exist = await prisma.$exists.favorite(filterOptions);
+                    if(!exist){
+                        await prisma.createFavorite({
+                            profile:{
+                                connect:{
+                                    id: profile.id
+                                }
+                            },
+                            owner:{
+                                connect:{
+                                    id: ownerId
+                                }
+                            }
+                        })
+                    }
+                    return owner;
+                }catch(e){
+                    throw Error("유효하지 않은 전화번호 입니다.")
+                }
+                }
         }
     }
 };

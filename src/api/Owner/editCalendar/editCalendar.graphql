@@ -1,6 +1,7 @@
 input CreatePrice {
     dateString: String!
     priceState: String!
+    self: Boolean!
 }
 
 input DeletePrice {
@@ -11,7 +12,7 @@ input UpdatePrice {
     id: String!
     dateString: String!
     priceState: String!
-    isBooked: Boolean
+    self: Boolean!
 }   
 
 type Mutation {

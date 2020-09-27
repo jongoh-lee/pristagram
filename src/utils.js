@@ -66,5 +66,34 @@ export const sendReservationConfirmMail = async (username, totalPrice) => {
   }
 }
 
+export const sendReservationCancelMail = async (username, refundPrice) => {
+  const transporter = nodemailer.createTransport(smtpTransport({
+    service: 'Gmail',
+    host:'smtp.google.com',
+    port:587,
+    secure: false,
+    auth:{
+      user:  process.env.SENDGRID_USERNAME,
+      pass: process.env.SENGRID_PASSWORD,
+    }
+  }));
+
+  const email = {
+    from: "푸드인사이드 <whddh5285@naver.com>",
+    to: "ljo.foodinside@gmail.com",
+    subject: "예약을 취소했습니다.",
+    html: `<strong>${username}</strong>님의 총 환불액은 ${refundPrice}원 입니다.`
+  };
+
+  try {
+    await transporter.sendMail(email);
+    console.log(`mail have sent to ${ "ljo.foodinside@gmail.com" }`);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
+
 // passport를 이용해 id를 jwt에 삽입 합니다. 이때 비밀 번호가 필요 합니다.
 export const generateToken = id => jwt.sign({ id }, process.env.JWT_SECRET);

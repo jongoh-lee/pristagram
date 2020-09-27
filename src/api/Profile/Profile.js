@@ -69,6 +69,7 @@ export default {
                 .count()
         },
         favorites:({ id }) => prisma.profile({ id }).favorites(),
+        bookings:({ id }) => prisma.profile({ id }).bookings()
     }   
 };
 

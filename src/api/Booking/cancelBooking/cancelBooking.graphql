@@ -1,0 +1,10 @@
+type Mutation {
+    cancelBooking(
+        ownerId: String!
+        bookingId: String!
+        dateList: [String!]!
+        refundPrice: String!
+        contact: String!
+        fullName: String!
+    ): Booking!
+}
