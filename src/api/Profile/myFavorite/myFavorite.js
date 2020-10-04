@@ -6,14 +6,17 @@ export default {
             isAuthenticated(request);
             const { user } = request;
             const profile = await prisma.user({id: user.id}).profile();
-            return await prisma.favorites({
-                where:{
-                    profile: {
-                        id: profile.id
+            if(profile){
+                return await prisma.favorites({
+                    where:{
+                        profile: {
+                            id: profile.id
+                        }
                     }
-                }
-            })
-
+                })
+            }else{
+                return null
+            }
         }
     }
 }

@@ -19,7 +19,8 @@ const upload = multer({
     key: function(req, file, cb) {
       cb(null, Date.now().toString());
     }
-  })
+  }),
+  // 이미지 필터 적용 시 fileFilter:
 });
 
 export const uploadMiddleware = upload.array("file");

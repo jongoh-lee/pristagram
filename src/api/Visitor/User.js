@@ -35,7 +35,7 @@ export default {
             .aggregate()
             .count(),
         fullName: parent => {
-         return `${parent.firstName} ${parent.lastName}`;
+         return `${parent.lastName} ${parent.firstName}`;
         },
         isFollowing: async ( parent, _, {request}) => {
             const { user } = request;
@@ -63,6 +63,7 @@ export default {
             const { user } = request;
             const { id:parentId } = parent;
             return user.id === parentId;
-        }
+        },
+        wallets: ({ id }) => prisma.user({ id }).wallets()
     }
 };

@@ -8,10 +8,14 @@ export default {
         const { date } = args;
         try {
             const owner = await prisma.user({ id: user.id}).owner();
+            const profile = await prisma.user({ id: user.id}).profile();
             const bookings = await prisma.bookings({
                 where:{
                     owner:{
                         id: owner.id
+                    },
+                    profile:{
+                        id_not: profile.id
                     },
                     firstDate_contains: date
                 }

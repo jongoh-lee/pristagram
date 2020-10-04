@@ -9,7 +9,7 @@ export default {
                 where:{
                     user: {
                         id: user.id
-                    }
+                    },
                 }
             })
 

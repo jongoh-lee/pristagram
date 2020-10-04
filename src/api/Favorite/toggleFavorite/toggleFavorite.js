@@ -7,41 +7,45 @@ export default {
             const { user } = request;
             const { id } = args;
             const profile = await prisma.user({id: user.id}).profile();
-            try {
-                const filterOptions = {
-                    AND: [
-                        {
-                            profile: {
-                                id: profile.id
+            if(profile){
+                try {
+                    const filterOptions = {
+                        AND: [
+                            {
+                                profile: {
+                                    id: profile.id
+                                }
+                            },
+                            {
+                                owner: {
+                                    id: id
+                                }
                             }
-                        },
-                        {
-                            owner: {
-                                id: id
+                        ]
+                    };
+                    const exist = await prisma.$exists.favorite(filterOptions)
+                    if(exist){
+                        await prisma.deleteManyFavorites(filterOptions);
+                    }else{
+                        await prisma.createFavorite({
+                            profile:{
+                                connect:{
+                                    id: profile.id
+                                }
+                            },
+                            owner:{
+                                connect:{
+                                    id: id
+                                }
                             }
-                        }
-                    ]
-                };
-                const exist = await prisma.$exists.favorite(filterOptions)
-                if(exist){
-                    await prisma.deleteManyFavorites(filterOptions);
-                }else{
-                    await prisma.createFavorite({
-                        profile:{
-                            connect:{
-                                id: profile.id
-                            }
-                        },
-                        owner:{
-                            connect:{
-                                id: id
-                            }
-                        }
-                    })
+                        })
+                    }
+                    return true
+                }catch(e){
+                    console.log("즐겨찾기 에러",e);
+                    return false
                 }
-                return true
-            }catch(e){
-                console.log("즐겨찾기 에러",e);
+            }else{
                 return false
             }
         }
