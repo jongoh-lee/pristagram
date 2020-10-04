@@ -6,7 +6,38 @@ export default {
             isAuthenticated(request);
             const { user } = request;
             const {id, tasting, createFiles } = args;
+            const walletFilterOption = {
+                AND: [
+                    {
+                        user: {
+                            id: user.id
+                        }
+                    },
+                    {
+                        profile: {
+                            id
+                        }
+                    }
+                ]
+            }
             try {
+            const existingWallet = await prisma.$exists.wallet(walletFilterOption);
+            if(!existingWallet){
+                await prisma.createWallet({
+                    user:{
+                        connect:{
+                            id: user.id
+                        }
+                    },
+                    profile:{
+                        connect:{
+                            id
+                        }
+                    },
+                    incoming: 0,
+                    outgoing: 0
+                })
+            }
             const profile = await prisma.updateProfile({
                 where: { id: id },
                 data:{
@@ -22,7 +53,7 @@ export default {
                     }
                 }
 
-            })
+            });
             return profile;
             } catch(e) {
                 console.log(e)

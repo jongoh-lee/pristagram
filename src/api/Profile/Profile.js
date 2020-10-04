@@ -69,7 +69,24 @@ export default {
                 .count()
         },
         favorites:({ id }) => prisma.profile({ id }).favorites(),
-        bookings:({ id }) => prisma.profile({ id }).bookings()
+        bookings:({ id }) => prisma.profile({ id }).bookings(),
+        myWallet: async ( parent, _, {request} ) => {
+            const { user } = request;
+            const { id } = parent;
+
+            const [ wallet ] = await prisma.wallets({ 
+                where: {
+                    user:{
+                        id: user.id
+                    },
+                    profile:{
+                        id
+                    }
+                },
+            })
+            return wallet
+        },
+        wallets: ({ id }) => prisma.profile({ id }).wallets()
     }   
 };
 

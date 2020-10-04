@@ -5,9 +5,25 @@ export default {
   Mutation: {
     toggleLike: async (_, args, { request }) => {
       isAuthenticated(request);
-      const { postId, profileId } = args;
+      const { postId, token, profileId, userId } = args;
       const { user } = request;
-      const filterOptions = {
+      const [ wallet ] = await prisma.wallets({
+        where:{
+          AND: [
+            {
+                user: {
+                    id: userId
+                }
+            },
+            {
+                profile: {
+                    id: profileId
+                }
+            }
+          ]
+        }
+      });
+      const likeFilterOptions = {
         AND: [
           {
             user: {
@@ -21,17 +37,31 @@ export default {
           }
         ]
       };
-      const profile = await prisma.profile({ id: profileId});
-      
+
       try {
-        const existingLike = await prisma.$exists.like(filterOptions);
+        const existingLike = await prisma.$exists.like(likeFilterOptions);
         if (existingLike) {
           //왜 deleteManyLikes를 쓰나요? like의 아이디를 불러오기 귀찮아서
-          await prisma.deleteManyLikes(filterOptions);
+          await prisma.deleteManyLikes(likeFilterOptions);
+          await prisma.updateWallet({
+            where:{
+              id: wallet.id
+            },
+            data:{
+              incoming: wallet.incoming - token
+            }
+          })
         } else {
+          await prisma.updateWallet({
+            where:{
+              id: wallet.id
+            },
+            data:{
+              incoming: wallet.incoming + token
+            }
+          })
           await prisma.createLike({
             user: {
-              //이 connect는 뭔가요?
               connect: {
                 id: user.id
               }
@@ -40,70 +70,14 @@ export default {
               connect: {
                 id: postId
               }
-            }
+            },
           });
         }
         return true;
       } catch(e) {
+        console.log(e)
         return false;
       }
     }
   }
-};
-          
-
-//import { isAuthenticated } from "../../../middlewares";
-//import { prisma } from "../../../../generated/prisma-client";
-//
-//export default {
-//  Mutation: {
-//    toggleLike: async (_, args, { request }) => {
-//      isAuthenticated(request);
-//      const { postId } = args;
-//      const { user } = request;
-//      const filterOptions = {
-//        AND: [
-//          {
-//            user: {
-//              id: user.id
-//            }
-//          },
-//          {
-//            post: {
-//              id: postId
-//            }
-//          }
-//        ]
-//      };
-//
-//      try {
-//        const existingLike = await prisma.$exists.like(filterOptions);
-//        if (existingLike) {
-//          //왜 deleteManyLikes를 쓰나요? like의 아이디를 불러오기 귀찮아서
-//          await prisma.deleteManyLikes(filterOptions);
-//          return prisma.post({ id: postId });
-//        } else {
-//          return await prisma.updatePost({
-//            where:{
-//              id: postId
-//            },
-//            data:{
-//              likes:{
-//                create:{
-//                  user:{
-//                    connect:{
-//                      id: user.id
-//                    }
-//                  },
-//                }
-//              }
-//            }
-//          })
-//        }
-//      } catch(e) {
-//        throw "Error"
-//      }
-//    }
-//  }
-//};
-          
+};        
