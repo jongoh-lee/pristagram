@@ -5,7 +5,7 @@ export default {
         completeShopDescription: async (_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user } = request;
-            const { shopName, district, description, precaution, hashTag } = args;
+            const { shopName, district, description, precaution, hashTags } = args;
             const owner = await prisma.user({ id: user.id }).owner();
             const newOwner = await prisma.updateOwner({
                 where: { id: owner.id},
@@ -14,7 +14,9 @@ export default {
                     district,
                     description,
                     precaution,
-                    hashTag,
+                    hashTags:{
+                        set: hashTags
+                    },
                 }
             });
             return newOwner
