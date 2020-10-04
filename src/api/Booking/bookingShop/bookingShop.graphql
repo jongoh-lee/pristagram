@@ -1,11 +1,17 @@
+input InputPrice {
+    id: String!
+    dateString: String!
+    priceState: String!
+}
+
 type Mutation {
     bookingShop(
         ownerId: String!
         firstDate: String!
         lastDate: String!
-        dateList: [String!]!
         totalPrice: String!
         username: String!
         contact: String!
+        prices: [InputPrice!]!
     ): Owner!
 }

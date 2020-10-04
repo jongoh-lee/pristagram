@@ -7,7 +7,9 @@ const client = require('twilio')(accountSid, authToken);
 export default {
     Mutation:{
         cancelBooking: async(_, args,) => {
-            const { ownerId, bookingId, dateList, refundPrice, contact, fullName} = args;
+            const { bookingId, refundPrice, contact, fullName, prices} = args;
+            let priceIdList = [];
+            prices.map(el => priceIdList.push(el.id));
             try{
             //문자 + 이메일 보내기
             await client.messages
@@ -21,23 +23,19 @@ export default {
                         console.log(message)
                     });
             //isBooked = false로 변경
-            await prisma.updateOwner({
-                where:{
-                    id: ownerId
-                },
-                data:{
-                    calendar:{
-                        updateMany:{
-                            where:{
-                                dateString_in: dateList,
-                            },
-                            data:{
-                                isBooked:false
-                            }
-                        }
+            try{
+                await prisma.updateManyPrices({
+                    where:{
+                        id_in: priceIdList
                     },
-                }
-            });
+                    data:{
+                        isBooked: false
+                    }
+                })
+            }catch(e){
+                throw Error("price update error");
+            }
+
             //예약 생성
             const booking = await prisma.updateBooking({
                 where:{

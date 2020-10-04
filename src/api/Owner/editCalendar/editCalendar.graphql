@@ -1,18 +1,18 @@
 input CreatePrice {
     dateString: String!
     priceState: String!
-    self: Boolean!
 }
 
 input DeletePrice {
     id: String!
+    dateString: String!
+    priceState: String!
 }
 
 input UpdatePrice {
     id: String!
     dateString: String!
     priceState: String!
-    self: Boolean!
 }   
 
 type Mutation {

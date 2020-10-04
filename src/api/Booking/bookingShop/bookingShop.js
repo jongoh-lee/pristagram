@@ -9,17 +9,22 @@ export default {
         bookingShop: async(_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user } = request;
-            const { ownerId, firstDate, lastDate, dateList, totalPrice, username, contact } = args;
+            const { ownerId, firstDate, lastDate, totalPrice, username, contact, prices} = args;
             const profile = await prisma.user({id: user.id}).profile()
             //예약 유무를 확인 합니다.
+            let priceIdList = [];
+            prices.map(el => priceIdList.push(el.id));
+            let priceIdInput = [];
+            prices.map(el => priceIdInput.push({ id : el.id}));
+
             const bookedDates = await prisma.prices({
                 where: {
-                    owner: {
-                        id_contains: ownerId
-                    },
-                    dateString_in: [...dateList],
-                    isBooked:true,
-                    priceState_in: ["self", "undefined"]
+                    id_in: priceIdList,
+                    OR:[{
+                        isBooked:true,    
+                    },{
+                        priceState_in: ["self", "undefined"]
+                    }]
                 },
             });
 
@@ -61,33 +66,43 @@ export default {
                             calendar:{
                                 updateMany:{
                                     where:{
-                                        dateString_in: dateList,
+                                        id_in: priceIdList,
                                     },
                                     data:{
                                         isBooked:true
                                     }
                                 }
-                            },
+                            }
                         }
-                    });
+                    })
+
+                    try{
                     //예약 생성
-                    await prisma.createBooking({
-                        owner:{
-                            connect:{
-                                id: ownerId
-                            }
-                        },
-                        profile:{
-                            connect:{
-                                id: profile.id
-                            }
-                        },
-                        firstDate,
-                        lastDate,
-                        totalPrice,
-                        dateList: {set: dateList}
-                    });
+                        await prisma.createBooking({
+                            owner:{
+                                connect:{
+                                    id: ownerId
+                                }
+                            },
+                            profile:{
+                                connect:{
+                                    id: profile.id
+                                }
+                            },
+                            prices:{
+                                connect: priceIdInput
+                            },
+                            firstDate,
+                            lastDate,
+                            totalPrice,
+                        });
+
+                    }catch(e){
+                        console.log(e)
+                    }
+                    
                     const exist = await prisma.$exists.favorite(filterOptions);
+
                     if(!exist){
                         await prisma.createFavorite({
                             profile:{
@@ -104,6 +119,7 @@ export default {
                     }
                     return owner;
                 }catch(e){
+                    console.log(e);
                     throw Error("유효하지 않은 전화번호 입니다.")
                 }
                 }

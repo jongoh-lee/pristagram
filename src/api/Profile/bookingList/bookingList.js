@@ -6,17 +6,33 @@ export default {
         isAuthenticated(request);
         const { user } = request;
         const { date } = args;
+        const owner = await prisma.user({ id: user.id}).owner();
+        const profile = await prisma.user({ id: user.id}).profile();
         try {
-            const profile = await prisma.user({ id: user.id}).profile();
-            const bookings = await prisma.bookings({
-                where:{
-                    profile:{
-                        id: profile.id
-                    },
-                    firstDate_contains: date
-                }
-            });
-            return bookings
+            if(owner){
+                const bookings = await prisma.bookings({
+                    where:{
+                        owner:{
+                            id_not: owner.id
+                        },
+                        profile:{
+                            id: profile.id
+                        },
+                        firstDate_contains: date
+                    }
+                });
+                return bookings
+            }else{
+                const bookings = await prisma.bookings({
+                    where:{
+                        profile:{
+                            id: profile.id
+                        },
+                        firstDate_contains: date
+                    }
+                });
+                return bookings
+            }
         } catch(e){
             return null
         }
