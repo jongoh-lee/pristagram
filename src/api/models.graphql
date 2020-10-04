@@ -16,6 +16,8 @@ type User {
   posts: [Post!]!
   postsCount: Int!
   likes: [Like!]!
+  #지갑
+  wallets: [Wallet!]! 
   dangols: [Dangol!]!
   dangolCount: Int!
   postComments: [PostComment!]!
@@ -58,6 +60,14 @@ type Like {
   post: Post!
   createdAt: String
   updatedAt: String
+}
+
+type Wallet {
+  id: ID! 
+  user: User! 
+  profile: Profile! 
+  incoming: Int 
+  outgoing: Int 
 }
 
 type PostComment {
@@ -108,6 +118,8 @@ type Profile {
   profileName: String
   sector: String
   token: Int
+  wallets: [Wallet!]!
+  myWallet: Wallet
   
   mainImage: String
   foodGuide: String!
@@ -196,7 +208,7 @@ type Owner {
   district: String
   description: String
   precaution: String
-  hashTag: String
+  hashTags: [String]
 
   #rules: Int
   checkIn: Int
@@ -216,19 +228,19 @@ type Owner {
 type Price {
   id: ID!
   owner: Owner! 
+  booking: Booking 
   dateString: String!
   priceState: String!
   isBooked: Boolean
-  self: Boolean!
 }
 
 type Booking {
   id: ID! 
   owner: Owner! 
   profile: Profile! 
+  prices: [Price!]!
   firstDate: String!
   lastDate: String!
-  dateList: [String!]!
   totalPrice: String!
   isPaid: Boolean
   isCancelled: Boolean 

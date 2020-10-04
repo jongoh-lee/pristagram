@@ -13,12 +13,13 @@ type User {
   likes: [Like!]! @relation(name: "LikesOfUser", onDelete: CASCADE)
   postComments: [PostComment!]! @relation(name: "PostCommentOfUser", onDelete: CASCADE)
   
+  wallets: [Wallet!]! @relation(name: "WalletsOfUser", onDelete: CASCADE)
+
   rooms: [Room!]!
   loginSecret:String
   contact: String
-  
-  profile: Profile @relation(onDelete: CASCADE)
-  owner: Owner @relation(onDelete: CASCADE)
+  profile: Profile @relation(name: "ProfileOfUser" onDelete: CASCADE)
+  owner: Owner @relation(name: "OwnerOfUser" onDelete: CASCADE)
 }
 
 type Post {
@@ -39,8 +40,16 @@ type Dangol {
 
 type Like {
   id: ID! @id
-  user: User @relation(name: "LikesOfUser")
-  post: Post @relation(name: "LikesOfPost")
+  user: User! @relation(name: "LikesOfUser")
+  post: Post! @relation(name: "LikesOfPost")
+}
+
+type Wallet {
+  id: ID! @id
+  user: User! @relation(name: "WalletsOfUser")
+  profile: Profile! @relation(name: "WalletsOfProfile")
+  incoming: Int @default(value: 0)
+  outgoing: Int @default(value: 0)
 }
 
 type PostComment {
@@ -72,7 +81,7 @@ type Message {
 
 type Profile {
   id: ID! @id
-  user: User!  @relation(link:TABLE)
+  user: User!  @relation(name: "ProfileOfUser", link:INLINE)
   dangols: [Dangol!]! @relation(name: "DangolsOfProfile", onDelete: CASCADE)
   classification: String!
   profileState: Int!
@@ -81,7 +90,8 @@ type Profile {
   profileName: String
   sector: String
   token: Int
-  
+  wallets: [Wallet!]! @relation(name: "WalletsOfProfile", onDelete: CASCADE)
+
   #info
   mainImage: String
   foodGuide: String!
@@ -102,10 +112,9 @@ type Profile {
 
   #posts
   posts: [Post!]! @relation(name: "PostsOfProfile", onDelete: CASCADE)
-
   #즐겨찾기
   favorites: [Favorite!]! @relation(name: "FavoritesOfProfile", onDelete: CASCADE)
-  bookings: [Booking!]! @relation(name: "BookingOfProfile")
+  bookings: [Booking!]! @relation(name: "BookingsOfProfile", onDelete: CASCADE)
 }
 
 type Favorite {
@@ -135,7 +144,7 @@ type Submenu {
 
 type Owner {
   id: ID! @id
-  user: User! @relation(link:TABLE)
+  user: User! @relation(name:"OwnerOfUser", link:INLINE)
   shopImages: [ShopImage!] @relation(name: "ImagesOfOwner", onDelete: CASCADE)
 #1차 신청
   address: String!
@@ -147,7 +156,7 @@ type Owner {
   contact: String!
   ownerState: Int!
 #price
-  calendar: [Price]! @relation(onDelete: CASCADE)
+  calendar: [Price]! @relation(name: "PricesOfOwner",onDelete: CASCADE)
 #facility
   facility: Facility @relation(onDelete: CASCADE)
 
@@ -161,7 +170,8 @@ type Owner {
   district: String
   description: String
   precaution: String
-  hashTag: String
+  hashTags: [String] @scalarList(strategy: RELATION)
+
 
 #rules: Int
   checkIn: Int
@@ -173,25 +183,25 @@ type Owner {
 
 #즐겨찾기
   favorites: [Favorite!]! @relation(name: "FavoritesOfOwner")
-  bookings: [Booking!]! @relation(name: "BookingOfOwner")
+  bookings: [Booking!]! @relation(name: "BookingsOfOwner")
 }
 
 type Price {
   id: ID! @id
-  owner: Owner! @relation(link: INLINE)
+  owner: Owner! @relation(name:"PricesOfOwner")
+  booking: Booking @relation(name: "PricesOfBooking")
   dateString: String!
   priceState: String!
   isBooked: Boolean @default(value: false)
-  self: Boolean!
 }
 
 type Booking {
   id: ID! @id
-  owner: Owner! @relation(name: "BookingOfOwner")
-  profile: Profile! @relation(name: "BookingOfProfile")
+  owner: Owner! @relation(name: "BookingsOfOwner")
+  profile: Profile! @relation(name: "BookingsOfProfile")
+  prices: [Price!]! @relation(name: "PricesOfBooking")
   firstDate: String!
   lastDate: String!
-  dateList: [String!]! @scalarList(strategy: RELATION)
   totalPrice: String!
   isPaid: Boolean @default(value: false)
   isCancelled: Boolean @default(value: false)
