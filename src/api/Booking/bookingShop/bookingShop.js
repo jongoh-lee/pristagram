@@ -9,7 +9,7 @@ export default {
         bookingShop: async(_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user } = request;
-            const { ownerId, firstDate, lastDate, totalPrice, username, contact, prices} = args;
+            const { ownerId, firstDate, lastDate, totalPrice, username, contact, prices, account} = args;
             const profile = await prisma.user({id: user.id}).profile()
             //예약 유무를 확인 합니다.
             let priceIdList = [];
@@ -27,6 +27,23 @@ export default {
                     }]
                 },
             });
+
+            if(account){
+                await prisma.updateProfile({
+                    where:{
+                        id: profile.id
+                    },
+                    data:{
+                        account:{
+                            create:{
+                                bank: account.bank,
+                                accountNumber: account.accountNumber,
+                                accountHolder: account.accountHolder
+                            }
+                        }
+                    }
+                })
+            }
 
             if(bookedDates.length > 0){
                 throw Error("방금 누군가 먼저 예약했습니다.")

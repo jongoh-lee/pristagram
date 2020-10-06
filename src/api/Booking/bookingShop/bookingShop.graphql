@@ -4,6 +4,12 @@ input InputPrice {
     priceState: String!
 }
 
+input CreateAccount {
+    bank: String!
+    accountNumber: String!
+    accountHolder: String!
+}
+
 type Mutation {
     bookingShop(
         ownerId: String!
@@ -13,5 +19,6 @@ type Mutation {
         username: String!
         contact: String!
         prices: [InputPrice!]!
+        account: CreateAccount
     ): Owner!
 }

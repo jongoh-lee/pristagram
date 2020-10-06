@@ -36,6 +36,12 @@ input DeleteMember {
    id: String!
 }
 
+input UpdateAccount {
+   id: String!
+   bank: String!
+   accountNumber: String!
+}
+
 type Mutation {
     completeProfile(
         profileName:String!
@@ -56,6 +62,7 @@ type Mutation {
         editMembers: [EditMember!]
         deleteMembers: [DeleteMember!]
 
+        updateAccount: UpdateAccount
         profileState: Int!
     ):Profile!
 }

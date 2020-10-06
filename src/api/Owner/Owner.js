@@ -20,5 +20,6 @@ export default {
                 return 0
             }
         },
+        account: ({id}) => prisma.owner({id}).account()
     }
 }

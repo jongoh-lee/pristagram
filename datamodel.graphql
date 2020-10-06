@@ -20,6 +20,9 @@ type User {
   contact: String
   profile: Profile @relation(name: "ProfileOfUser" onDelete: CASCADE)
   owner: Owner @relation(name: "OwnerOfUser" onDelete: CASCADE)
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Post {
@@ -30,18 +33,25 @@ type Post {
   files: [File!]! @relation(name: "FilesOfPost", onDelete: CASCADE)
   likes: [Like!]! @relation(name: "LikesOfPost", onDelete: CASCADE)
   postComments: [PostComment!]! @relation(name: "PostCommentOfPost", onDelete: CASCADE)
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Dangol {
   id: ID! @id
   user: User @relation(name: "DangolsOfUser")
   profile: Profile @relation(name: "DangolsOfProfile")
+
+  createdAt: DateTime! @createdAt
 }
 
 type Like {
   id: ID! @id
   user: User! @relation(name: "LikesOfUser")
   post: Post! @relation(name: "LikesOfPost")
+
+  createdAt: DateTime! @createdAt
 }
 
 type Wallet {
@@ -50,6 +60,9 @@ type Wallet {
   profile: Profile! @relation(name: "WalletsOfProfile")
   incoming: Int @default(value: 0)
   outgoing: Int @default(value: 0)
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type PostComment {
@@ -57,12 +70,18 @@ type PostComment {
   text: String!
   user: User @relation(name: "PostCommentOfUser")
   post: Post @relation(name: "PostCommentOfPost")
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type File {
   id: ID! @id
   url: String!
   post: Post @relation(name: "FilesOfPost")
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Room {
@@ -91,6 +110,7 @@ type Profile {
   sector: String
   token: Int
   wallets: [Wallet!]! @relation(name: "WalletsOfProfile", onDelete: CASCADE)
+  account: Account @ralation(link: INLINE, onDelete: CASCADE)
 
   #info
   mainImage: String
@@ -115,12 +135,17 @@ type Profile {
   #즐겨찾기
   favorites: [Favorite!]! @relation(name: "FavoritesOfProfile", onDelete: CASCADE)
   bookings: [Booking!]! @relation(name: "BookingsOfProfile", onDelete: CASCADE)
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Favorite {
   id: ID! @id
   owner: Owner @relation(name: "FavoritesOfOwner")
   profile: Profile @relation(name: "FavoritesOfProfile")
+
+  createdAt: DateTime! @createdAt
 }
 
 type Member {
@@ -130,6 +155,9 @@ type Member {
   name: String!
   position: String!
   career: String!
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Submenu {
@@ -139,6 +167,9 @@ type Submenu {
   menuName: String!
   fullPrice: Int!
   salePrice: Int!
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 
@@ -157,6 +188,7 @@ type Owner {
   ownerState: Int!
 #price
   calendar: [Price]! @relation(name: "PricesOfOwner",onDelete: CASCADE)
+  account: Account @ralation(link: INLINE, onDelete: CASCADE)
 #facility
   facility: Facility @relation(onDelete: CASCADE)
 
@@ -184,6 +216,9 @@ type Owner {
 #즐겨찾기
   favorites: [Favorite!]! @relation(name: "FavoritesOfOwner")
   bookings: [Booking!]! @relation(name: "BookingsOfOwner")
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Price {
@@ -193,6 +228,9 @@ type Price {
   dateString: String!
   priceState: String!
   isBooked: Boolean @default(value: false)
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Booking {
@@ -206,6 +244,18 @@ type Booking {
   isPaid: Boolean @default(value: false)
   isCancelled: Boolean @default(value: false)
   refundPrice: String
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Account {
+  id: ID! @id
+  bank: String!
+  accountNumber: String!
+  accountHolder: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Facility {
@@ -355,6 +405,9 @@ type Facility {
   cctv: Boolean @default(value:false)
   kiosk: Boolean @default(value:false)
   umbrella_stand: Boolean @default(value:false)
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type ShopImage {
@@ -362,6 +415,9 @@ type ShopImage {
   owner: Owner! @relation(name:"ImagesOfOwner")
   type: IMAGE_TYPE
   url: String!
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 enum IMAGE_TYPE {

@@ -51,6 +51,7 @@ type Dangol {
   id: ID! 
   user: User 
   profile: Profile 
+  createdAt: String
 }
 
 
@@ -59,7 +60,6 @@ type Like {
   user: User!
   post: Post!
   createdAt: String
-  updatedAt: String
 }
 
 type Wallet {
@@ -68,6 +68,8 @@ type Wallet {
   profile: Profile! 
   incoming: Int 
   outgoing: Int 
+  createdAt: String
+  updatedAt: String
 }
 
 type PostComment {
@@ -120,6 +122,7 @@ type Profile {
   token: Int
   wallets: [Wallet!]!
   myWallet: Wallet
+  account: Account
   
   mainImage: String
   foodGuide: String!
@@ -153,6 +156,7 @@ type Favorite {
   id: ID!
   owner: Owner 
   profile: Profile 
+  createdAt: String
 }
 
 type Member {
@@ -162,6 +166,8 @@ type Member {
   name: String!
   position: String!
   career: String
+  createdAt: String
+  updatedAt: String
 }
 
 type Submenu {
@@ -194,6 +200,7 @@ type Owner {
 
   #price
   calendar: [Price]!
+  account: Account
 
   #total
   facility: Facility
@@ -223,6 +230,8 @@ type Owner {
 
   #예약 내역
   bookings: [Booking!]!
+  createdAt: String
+  updatedAt: String
 }
 
 type Price {
@@ -232,6 +241,17 @@ type Price {
   dateString: String!
   priceState: String!
   isBooked: Boolean
+  createdAt: String
+  updatedAt: String
+}
+
+type Account {
+  id: ID! 
+  bank: String!
+  accountNumber: String!
+  accountHolder: String!
+  createdAt: String! 
+  updatedAt: String! 
 }
 
 type Booking {
@@ -245,6 +265,8 @@ type Booking {
   isPaid: Boolean
   isCancelled: Boolean 
   refundPrice: String
+  createdAt: String
+  updatedAt: String
 }
 
 
@@ -395,6 +417,8 @@ type Facility {
   cctv: Boolean 
   kiosk: Boolean 
   umbrella_stand: Boolean 
+  createdAt: String
+  updatedAt: String
 }
 
 type ShopImage {

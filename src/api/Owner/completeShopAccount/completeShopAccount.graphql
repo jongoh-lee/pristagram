@@ -1,0 +1,18 @@
+input CreateShopAccount {
+    bank: String!
+    accountNumber: String!
+    accountHolder: String!
+}
+
+input UpdateShopAccount {
+    bank: String!
+    accountNumber: String!
+    accountHolder: String!
+}
+
+type Mutation {
+    completeShopAccount(
+        createAccount: CreateShopAccount,
+        updateAccount: UpdateShopAccount
+    ):Owner!
+}

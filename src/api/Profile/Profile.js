@@ -86,7 +86,8 @@ export default {
             })
             return wallet
         },
-        wallets: ({ id }) => prisma.profile({ id }).wallets()
+        wallets: ({ id }) => prisma.profile({ id }).wallets(),
+        account: ({ id }) => prisma.profile({ id }).account(),
     }   
 };
 
