@@ -2,7 +2,8 @@ import { prisma } from "../../../generated/prisma-client";
 
 export default {
     Post:{
-        files: ({ id }) => prisma.post({ id }).files(),
+        files: ({ id }) => prisma.post({ id }).files({first:1}),
+        allFiles: ({ id }) => prisma.post({ id }).files(),
         postComments: ({ id }) => prisma.post({ id }).postComments(),
         user: ({ id }) => prisma.post({ id }).user(),
         profile: ({ id }) => prisma.post({ id }).profile(),

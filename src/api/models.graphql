@@ -44,6 +44,7 @@ type Post {
   isSelf: Boolean!
   createdAt: String
   updatedAt: String
+  allFiles: [File!]!
 }
 
 
