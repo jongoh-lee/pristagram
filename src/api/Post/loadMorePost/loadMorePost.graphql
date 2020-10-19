@@ -1,3 +1,3 @@
 type Query {
-  loadMorePost(id: String!): [Post]
+  loadMorePost(id: String!, username: String!): [Post]
 }
