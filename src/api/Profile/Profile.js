@@ -34,8 +34,8 @@ export default {
             .aggregate()
             .count(),
         posts: async ({ id }) => {
-            let _posts = await prisma.profile({ id }).posts()
-            return _posts.reverse()
+            let _posts = await prisma.profile({ id }).posts({orderBy:"createdAt_DESC", first:5})
+            return _posts
         },
         isSelf: async ( parent, _, {request} ) => {
             const { user } = request;

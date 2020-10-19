@@ -24,8 +24,8 @@ export default {
 
         rooms: ({ id }) => prisma.user({ id }).rooms(),
         posts: async ({ id }) => {
-            let _posts = await prisma.user({ id }).posts()
-            return _posts.reverse()
+            let _posts = await prisma.user({ id }).posts({orderBy:"createdAt_DESC", first:15})
+            return _posts
         },
         likes: ({ id }) => prisma.user({ id }).likes(),
         postComments: ({ id }) => prisma.user({ id }).postComments(),
