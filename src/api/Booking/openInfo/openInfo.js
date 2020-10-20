@@ -9,6 +9,7 @@ export default {
                     prices_some:{
                         dateString_gte: today
                     },
+                    isCancelled: false
                 }
             })
             return bookings;
