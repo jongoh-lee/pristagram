@@ -5,8 +5,8 @@ type User {
   email: String! @unique
   firstName: String @default(value: "")
   lastName: String
-  following: [User!]! @relation(name: "FollowRelation")
-  followers: [User!]! @relation(name: "FollowRelation")
+  following: [User!]! @relation(name: "FollowRelation", onDelete: CASCADE)
+  followers: [User!]! @relation(name: "FollowRelation", onDelete: CASCADE)
   dangols: [Dangol!]! @relation(name: "DangolsOfUser", onDelete: CASCADE)
   
   posts: [Post!]! @relation(name: "PostsOfUser", onDelete: CASCADE)
@@ -214,8 +214,8 @@ type Owner {
   refundAgree: Boolean
 
 #즐겨찾기
-  favorites: [Favorite!]! @relation(name: "FavoritesOfOwner")
-  bookings: [Booking!]! @relation(name: "BookingsOfOwner")
+  favorites: [Favorite!]! @relation(name: "FavoritesOfOwner", onDelete: CASCADE)
+  bookings: [Booking!]! @relation(name: "BookingsOfOwner", onDelete: CASCADE)
 
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
