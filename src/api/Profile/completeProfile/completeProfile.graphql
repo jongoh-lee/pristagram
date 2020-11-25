@@ -53,6 +53,7 @@ type Mutation {
         origin: String
 
         fullPrice: Int!
+        salePrice: Int!
         createMenus: [CreateMenu!]
         editMenus: [EditMenu!]
         deleteMenus: [DeleteMenu!]
