@@ -106,6 +106,7 @@ type Profile {
   profileState: Int!
   
   #업종
+  release: Boolean
   profileName: String
   sector: String
   token: Int

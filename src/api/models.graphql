@@ -118,6 +118,7 @@ type Profile {
   classification: String!
   profileState: Int
   
+  release: Boolean
   profileName: String
   sector: String
   token: Int
