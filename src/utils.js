@@ -25,7 +25,7 @@ export const sendSecretMail = async (address, secret) => {
   }));
 
   const email = {
-    from: "푸드인사이드 <whddh5285@naver.com>",
+    from: "푸드 인사이드 <whddh5285@naver.com>",
     to: address,
     subject: "로그인 인증키🔑",
     html: `안녕하세요! 푸드인사이드 로그인 인증 키는 <strong>${secret}</strong><br/>입니다. 안전한 로그인을 위해 정확한 키를 입력해 주세요`
@@ -52,7 +52,7 @@ export const sendReservationConfirmMail = async (username, totalPrice) => {
   }));
 
   const email = {
-    from: "푸드인사이드 <whddh5285@naver.com>",
+    from: "푸드 인사이드 <whddh5285@naver.com>",
     to: "ljo.foodinside@gmail.com",
     subject: "음식점을 예약했습니다.",
     html: `<strong>${username}</strong>님의 총 입금액은 ${totalPrice}원 입니다.`
@@ -79,7 +79,7 @@ export const sendReservationCancelMail = async (username, refundPrice) => {
   }));
 
   const email = {
-    from: "푸드인사이드 <whddh5285@naver.com>",
+    from: "푸드 인사이드 <whddh5285@naver.com>",
     to: "ljo.foodinside@gmail.com",
     subject: "예약을 취소했습니다.",
     html: `<strong>${username}</strong>님의 총 환불액은 ${refundPrice}원 입니다.`
