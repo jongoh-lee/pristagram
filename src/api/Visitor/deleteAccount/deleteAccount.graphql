@@ -1,0 +1,5 @@
+type Mutation {
+  deleteAccount(
+    id: String!,
+  ): Boolean!
+}
