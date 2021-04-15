@@ -10,7 +10,7 @@ export default {
                 release:true,
                 profileState: 3,
             },
-            orderBy: "createdAt_DESC"
+            orderBy: "createdAt_ASC"
         });
         return profiles
     }
