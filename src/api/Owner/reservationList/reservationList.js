@@ -9,18 +9,30 @@ export default {
         try {
             const owner = await prisma.user({ id: user.id}).owner();
             const profile = await prisma.user({ id: user.id}).profile();
-            const bookings = await prisma.bookings({
-                where:{
-                    owner:{
-                        id: owner.id
-                    },
-                    profile:{
-                        id_not: profile.id
-                    },
-                    firstDate_contains: date
-                }
-            });
-            return bookings
+            if(profile.id){
+                const bookings = await prisma.bookings({
+                    where:{
+                        owner:{
+                            id: owner.id
+                        },
+                        profile:{
+                            id_not: profile.id
+                        },
+                        firstDate_contains: date
+                    }
+                });
+                return bookings
+            }else{
+                const bookings = await prisma.bookings({
+                    where:{
+                        owner:{
+                            id: owner.id
+                        },
+                        firstDate_contains: date
+                    }
+                });
+                return bookings
+            }
         } catch(e){
             return null
         }
