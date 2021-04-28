@@ -9,7 +9,7 @@ export default {
         try {
             const owner = await prisma.user({ id: user.id}).owner();
             const profile = await prisma.user({ id: user.id}).profile();
-            if(profile?.id){
+            if(profile?.profileState === 3 ){
                 const bookings = await prisma.bookings({
                     where:{
                         owner:{
