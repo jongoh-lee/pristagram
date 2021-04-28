@@ -53,6 +53,7 @@ type Mutation {
         foodGuide: String!
         origin: String
 
+        menuImage: String!
         fullPrice: Int!
         salePrice: Int!
         createMenus: [CreateMenu!]

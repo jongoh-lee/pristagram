@@ -5,7 +5,7 @@ export default {
         completeProfile : async(_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user } = request;
-            const { release ,profileName, sector, token, contact, founderImage, mainImage, foodGuide, origin, fullPrice, salePrice, createMenus, editMenus, deleteMenus, createMembers, editMembers, deleteMembers, profileState, updateAccount } = args;
+            const { release ,profileName, sector, token, contact, founderImage, mainImage, foodGuide, origin, menuImage, fullPrice, salePrice, createMenus, editMenus, deleteMenus, createMembers, editMembers, deleteMembers, profileState, updateAccount } = args;
             const myProfile = await prisma.user({id : user.id}).profile();
             let _createMenus = createMenus.map( el => (
                 {
@@ -63,6 +63,7 @@ export default {
                     salePrice,
                     profileState,
                     founderImage,
+                    menuImage,
                     submenus: {
                         updateMany: _editMenus,
                         create: _createMenus,
