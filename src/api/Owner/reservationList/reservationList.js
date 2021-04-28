@@ -9,7 +9,6 @@ export default {
         try {
             const owner = await prisma.user({ id: user.id}).owner();
             const profile = await prisma.user({ id: user.id}).profile();
-            console.log(profile);
             if(profile?.id){
                 const bookings = await prisma.bookings({
                     where:{
@@ -34,7 +33,6 @@ export default {
                 });
                 return bookings
             }
-        console.log(bookings);
         } catch(e){
             console.log("점주 예약 확인 에러",e);
             return null
